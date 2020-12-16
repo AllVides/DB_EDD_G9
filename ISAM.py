@@ -15,7 +15,7 @@ class Indice:
         else:
             i = self._hashl(val[0])
         if self.indx[i] == None:
-            self.indx[i] = Cilindro("CS"+str(i))
+            self.indx[i] = Cilindro("CS"+str(i), self.pkey, i)
         return self.indx[i].insert(registro)
 
     def _hashl(self, key):
@@ -49,9 +49,10 @@ class Indice:
     def readAll(self):
         data=[]
         for cil in self.indx:
-            if not cil == None:
-                data.append(cil.readAll())
+            if cil == None:
+                continue
+            data.extend(cil.readAll())
         return data
 
-    def readRange(self, upper, lower):
-        pass
+    def readRange(self, lower, upper):
+        
