@@ -116,7 +116,6 @@ class AVLTree:
     def _eliminar(self, valor,nodo):
 
         if nodo is None:  # Si el nodo a eliminar no existe, terminar
-            print('El nodo NO existe')
             return nodo
         elif valor < str(nodo.value):  # El valor a eliminar es menor 
             nodo.left= self._eliminar(valor,nodo.left)
@@ -226,7 +225,22 @@ class AVLTree:
                 print(str(actual.value)+"->"+str(actual.tables)+";\n")
     def imprimir(self):
         self._imprimir(self.root)
+
+    def verificar(self,valor):
+        band=False
+        temp=self.root
+        while temp is not None:
+            if valor == temp:
+                return 
+            elif valor > str(temp.value):
+                temp = temp.right
+            elif valor < str(temp.value):
+                temp = temp.left
+
+        return band
+    
 #init
+"""
 t = AVLTree()
 
 #add
@@ -260,3 +274,4 @@ t.Eliminar("base1")
 t.imprimir()
 
 t.grafo()
+"""

@@ -231,6 +231,7 @@ class AVLTree:
     def imprimir(self):
         self._imprimir(self.root)
 #init
+"""
 t = AVLTree()
 
 #add
@@ -264,3 +265,4 @@ t.Eliminar("base1")
 t.imprimir()
 
 t.grafo()
+"""
