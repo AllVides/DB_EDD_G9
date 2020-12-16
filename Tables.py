@@ -1,9 +1,11 @@
+from ISAM import *
+
 class TabsStruct:
-    def __init__(self, db, name, cols, tuplas):
+    def __init__(self, db, name, cols):
         # numero de columnas
         self.countCol = cols
         # tuplas con estructura de ISAM
-        self.tuplas = tuplas
+        self.tuplas = Indice([0])
         # nombre de la tabla
         self.name = name
         # nombre de la db
@@ -15,7 +17,7 @@ class Tables:
         self.Tabs = {}
 
     def createTable(self, database, table, numberColumns):
-        tab = TabsStruct(database, table, numberColumns, [])
+        tab = TabsStruct(database, table, numberColumns)
         # self.Tabs[table]=[database,table,numberColumns]
         self.Tabs[table] = tab
 

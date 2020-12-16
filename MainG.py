@@ -1,61 +1,65 @@
-import os 
-from DataBaseTree_AVL import AVLTree 
+import os
+from DataBaseTree_AVL import AVLTree
 import shutil
 
 
-
-
-
 class Main:
-    
+
     def __init__(self):
-        self.database= AVLTree()
-        
+        self.database = AVLTree()
+
     # CRUD DE LA BASE DE DATOS
-    def dropDatabase(self,database: str) -> int: 
-        if self.verificador(database)==True:
+    def dropDatabase(self, database: str) -> int:
+        if self.verificador(database) == True:
             self.database.Eliminar(database)
             shutil.rmtree("data/databases/"+database)
             return 0
-        elif self.verificador(database)==False:
+        elif self.verificador(database) == False:
             return 2
         else:
             return 1
-        
 
-    def createDatabase(self,database:str)-> int:
-        if self.verificador(database)==True:
+    def createDatabase(self, database: str) -> int:
+        if self.verificador(database) == True:
             return 2
-        elif self.verificador(database)==False:
+        elif self.verificador(database) == False:
             self.initCheck(database)
-            lista={1:" Me ",2:" llamo ",3:" mynor"}
-            self.database.add(database,lista)
+            lista = {1: " Me ", 2: " llamo ", 3: " mynor"}
+            self.database.add(database, lista)
             return 0
         else:
             return 1
-
 
     def showDatabases(self) -> list:
         self.database.imprimir()
-            
 
-
-    def alterDatabase(self,databaseOld, databaseNew) -> int:
-        if self.verificador(databaseOld)==False:
+    def alterDatabase(self, databaseOld, databaseNew) -> int:
+        if self.verificador(databaseOld) == False:
             return 2
-        elif self.verificador(databaseNew)==True:
+        elif self.verificador(databaseNew) == True:
             return 3
         elif self.verificador(databaseOld):
-            self.database.modicar(databaseOld,databaseNew)
-            os.rename('data/databases/'+databaseOld,'data/databases/'+databaseNew)
+            self.database.modicar(databaseOld, databaseNew)
+            os.rename('data/databases/'+databaseOld,
+                      'data/databases/'+databaseNew)
             return 0
         else:
             return 1
 
-
-    #CRUD DE LAS TABLAS QUE ESTAN DENTRO DE LA BASE DE DATOS
-    def createTable(self,database: str, table: str, numberColumns: int) -> int:
-        print("CREAR TABLAS")
+    # CRUD DE LAS TABLAS QUE ESTAN DENTRO DE LA BASE DE DATOS
+    def createTable(self, database: str, table: str, numberColumns: int) -> int:
+       try:
+            if self.verificador(database) == True:
+                if self.verificador(str(database)+"/"+str(table)):
+                    return 3
+                else:
+                    self.initCheck(str(database)+"/"+str(table))
+                    self.database
+                    return 0
+            else:
+                return 2 
+       except expression as identifier:
+           return 1
 
     def alterAddPK(self,database: str, table:str , columns: list) -> int:
         print("AGREGAR LLAVE PRIMARIA")
@@ -64,16 +68,49 @@ class Main:
         print("ELIMINAR LLAVE PRIMARIA")
 
     def defineFK(self,database: str, table:str, references: dict) -> int:
+        #para la fase 2
         print("integridad de las tablas")
 
     def showTables(self,database: str) -> list:
-        print("imprime las tablas en lista")
+        try:
+            if self.verificador(database):
+                #retornar la lista 
+                tabs=self.database.tables.showTables(database)
+                return tabs
+            else:
+                return None
+        except error:
+            return None
 
     def alterTable(self,database: str, tableOld: str, tableNew: str) -> int:
-        print("Modifica el nombre de la tabla")
+       try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(tableOld)):
+                    if self.verificador(str(database)+"/"+str(tableOld)):
+                        return 4
+                    else:
+                        self.database.tables.alterTable(database,tableOld,tableNew)
+                        return 0
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
 
     def dropTable(self,database: str, table:str) -> int:
-        print("eliminar tabla")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    shutil.rmtree("data/databases/"+str(database)+"/"+str(table))
+                    return 0
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
+        
 
     def alterAddColumn(self,database: str, table :str) -> int:
         print("agregar columna")
@@ -83,7 +120,17 @@ class Main:
 
     
     def extractTable(self,database: str, table :str) -> list:
-        print("extrae una  tabla y lo devuelve en lista")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    reg = self.database.tables.extractTable(database,table)
+                    return reg
+                else:
+                    return None
+            else:
+                return None
+        except error:
+            return None
 
     
     def extractRangeTable(self,database: str, table :str, lower: Any, upper: Any) -> list:
@@ -110,7 +157,7 @@ class Main:
         print("extrae y devuelve una tupla especificada")
 
 
-    #METODOS EXTRAS 
+    # METODOS EXTRAS 
     def initCheck(self,name):
         if not os.path.exists('data'):
             os.makedirs('data')
