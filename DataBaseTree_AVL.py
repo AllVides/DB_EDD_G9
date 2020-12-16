@@ -218,11 +218,12 @@ class AVLTree:
         if actual:
             
             self._imprimir(actual.left)
-            self._imprimir( actual.right )
+            self._imprimir(actual.right)
             if actual.left:
-                print(str(actual.value)+"->"+ str(actual.tables)+";\n")
+                print(str(actual.value)+" -> "+ str(actual.tables)+";\n")
             if actual.right:
-                print(str(actual.value)+"->"+str(actual.tables)+";\n")
+                print(str(actual.value)+" -> "+str(actual.tables)+";\n")
+
     def imprimir(self):
         self._imprimir(self.root)
 
@@ -240,7 +241,7 @@ class AVLTree:
         return band
     
 #init
-"""
+
 t = AVLTree()
 
 #add
@@ -271,7 +272,4 @@ t.grafo()
 t.modicar("base4","hola32")
 t.add("hola5000",diccionario1)
 t.Eliminar("base1")
-t.imprimir()
-
-t.grafo()
-"""
+t.inorder()

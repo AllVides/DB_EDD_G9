@@ -56,3 +56,4 @@ class Indice:
 
     def readRange(self, lower, upper):
         
+        ""
