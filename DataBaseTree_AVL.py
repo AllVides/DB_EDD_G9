@@ -1,8 +1,10 @@
+from Tables import *
+
 
 class DataBase:
     def __init__(self, value):
         self.value  = value
-        self.tables={}
+        self.tables= Tables()
         self.left   = None
         self.right  = None
         self.height = 0   #altura 
@@ -15,17 +17,16 @@ class AVLTree:
 
     #add
         
-    def add(self, value,lista):
-        self.root = self._add(value, self.root,lista)
+    def add(self, value):
+        self.root = self._add(value, self.root)
     
-    def _add(self, value, tmp,lista):
+    def _add(self, value, tmp):
         if tmp is None: # SI esta vacio la raiz solola devuelve
             tmp=DataBase(value)
-            tmp.tables=lista
             return tmp      
         elif value>str(tmp.value):  # es mayor que la raiz
             #ingresa al nodo derecho del padre
-            tmp.right=self._add((value), tmp.right,lista)
+            tmp.right=self._add((value), tmp.right)
             #calcula la altura para nivelar
             if (self.height(tmp.right)-self.height(tmp.left))==2: # si es igual a 2 no esta equilibrado
                 if value>tmp.right.value:
@@ -33,7 +34,7 @@ class AVLTree:
                 else:
                     tmp = self.drr(tmp)
         else:
-            tmp.left=self._add(value, tmp.left,lista)
+            tmp.left=self._add(value, tmp.left)
             if (self.height(tmp.left)-self.height(tmp.right))==2:
                 if value<str(tmp.left.value):
                     tmp = self.srl(tmp)
@@ -211,7 +212,6 @@ class AVLTree:
                 temp = temp.right
             elif valor < str(temp.value):
                 temp = temp.left
-
         return None
 
     def _imprimir(self,actual):
@@ -220,9 +220,9 @@ class AVLTree:
             self._imprimir(actual.left)
             self._imprimir(actual.right)
             if actual.left:
-                print(str(actual.value)+" -> "+ str(actual.tables)+";\n")
+                print(str(actual.value)+" -> "+ str(actual.tables.showTables("FALTA PRUEBA"))+";\n")
             if actual.right:
-                print(str(actual.value)+" -> "+str(actual.tables)+";\n")
+                print(str(actual.value)+" -> "+str(actual.tables.showTables("FALTA PRUEBA"))+";\n")
 
     def imprimir(self):
         self._imprimir(self.root)
