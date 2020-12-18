@@ -12,7 +12,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	def createDatabase(database: str) -> int:
 ```
 
-*  ###Visualizacion de bases de datos
+*  ### Visualizacion de bases de datos
 El valor de retorno es un arreglo que cambia segun los datos
 	*	[None]-->  Arreglo Vacio
 	* 	[Data1,Data2,Data3] --> Arreglo Con los datos
@@ -36,7 +36,7 @@ Parametros:
 	
 
 *  ### Eliminacion de bases de datos
-*Solo se ingresa el nombre de la base de datos **debe de cumplir con las reglas de indentificadores en SQL**
+* Solo se ingresa el nombre de la base de datos **debe de cumplir con las reglas de indentificadores en SQL**
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -49,7 +49,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 *  ### Creacion de tablas en bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
-** *numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
+** * numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -81,9 +81,9 @@ El valor de retorno es un arreglo que cambia segun los datos
 *  ### Visualiza una tabla con un rango especifico de la  bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
-** *columnNumber: ** es el número de índice de columna a restringir o verificar con los valores upper y lower.
-** *upper:** es el límite superior (inclusive) del rango a extraer de la columna indicada de la tabla.
-** *lower:** es el límite inferior (inclusive) del rango a extraer de la columna indicada de la tabla.
+** * columnNumber: ** es el número de índice de columna a restringir o verificar con los valores upper y lower.
+** * upper:** es el límite superior (inclusive) del rango a extraer de la columna indicada de la tabla.
+** * lower:** es el límite inferior (inclusive) del rango a extraer de la columna indicada de la tabla.
 El valor de retorno es un arreglo que cambia segun los datos
 	*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
 	* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
@@ -95,7 +95,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 *  ### Asocia llave primaria o compuesta en tablas de la bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
-** *columns:** es el listado de números de columnas que formarán parte de la llave primaria. 
+** * columns:** es el listado de números de columnas que formarán parte de la llave primaria. 
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -140,7 +140,7 @@ Valor de retorno: 0 operación exitosa, 1 error en la operación, 2 database no 
 *  ### Agrega una columna al final de cada registro de la tabla y base de datos especificada
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea modificar.
-** *default:** es el valor que se establecerá en a la nueva columna para los registros existentes.
+** * default:** es el valor que se establecerá en a la nueva columna para los registros existentes.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -183,7 +183,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 *  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar
-** *register:** es una lista de elementos que representan un registro.
+** * register:** es una lista de elementos que representan un registro.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -198,7 +198,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 *  ### Extrae y devuelve un registro especificado por su llave primaria.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
-** *columns: ** es la llave primaria 
+** * columns: ** es la llave primaria 
 Valor de retorno: lista con los valores del registro, si ocurrió un error o no hay registro que mostrar devuelve una lista vacía [].
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	[	]-->  Arreglo Vacio si no hay registro o hay algun error
@@ -210,7 +210,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 *  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
-** *register:** es una lista de elementos llave:valor que representa los elementos a actualizar del registro. La llave el número de coluna y el valor el contenido del campo.
+** * register:** es una lista de elementos llave:valor que representa los elementos a actualizar del registro. La llave el número de coluna y el valor el contenido del campo.
 Valor de retorno: lista con los valores del registro, si ocurrió un error o no hay registro que mostrar devuelve una lista vacía [].
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
