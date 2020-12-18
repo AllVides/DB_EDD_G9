@@ -1,6 +1,7 @@
 import os
 from DataBaseTree_AVL import AVLTree
 import shutil
+import pickle
 
 
 class Main:
@@ -54,42 +55,52 @@ class Main:
                     return 3
                 else:
                     self.initCheck(str(database)+"/"+str(table))
+                    tabs = self.database.bus(database)
+                    tup = tabs.createTable(
+                        database, table, numberColumns, 'data/databases/'+str(database)+"/"+str(table))
                     return 0
             else:
-                return 2 
+                return 2
        except expression as identifier:
            return 1
 
-    def alterAddPK(self,database: str, table:str , columns: list) -> int:
+    def alterAddPK(self, database: str, table: str, columns: list) -> int:
         print("AGREGAR LLAVE PRIMARIA")
 
-    def alterDropPK(self,database: str, table:str) -> int:
+    def alterDropPK(self, database: str, table: str) -> int:
         print("ELIMINAR LLAVE PRIMARIA")
 
-    def defineFK(self,database: str, table:str, references: dict) -> int:
-        #para la fase 2
+    def defineFK(self, database: str, table: str, references: dict) -> int:
+        # para la fase 2
         print("integridad de las tablas")
 
-    def showTables(self,database: str) -> list:
+    def showTables(self, database: str) -> list:
         try:
             if self.verificador(database):
-                #retornar la lista 
+                # retornar la lista
+
+                contenido = os.listdir('data/databases/'+str(database)')
+
+                '''
                 tabs=self.database.tables.showTables(database)
-                return tabs
+                '''
+                return contenido
             else:
                 return None
         except error:
             return None
 
-    def alterTable(self,database: str, tableOld: str, tableNew: str) -> int:
+    def alterTable(self, database: str, tableOld: str, tableNew: str) -> int:
        try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(tableOld)):
                     if self.verificador(str(database)+"/"+str(tableOld)):
                         return 4
                     else:
-                        tabs=self.database.bus(database)
-                        tabs.alterTable(database,tableOld,tableNew)
+                        tabs = self.database.bus(database)
+                        tabs.alterTable(database, tableOld, tableNew)
+                        os.rename('data/databases/'+str(database)+"/"+str(tableOld),
+                        'data/databases/'+str(database)+"/"+str(tableNew))
                         return 0
                 else:
                     return 3
@@ -123,8 +134,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    tabs=self.database.bus(database)
-                    tup=tabs.extractTable(database,table)
+                    #tabs=self.database.bus(database)
+                    #tup=tabs.extractTable(database,table)
+                    tup = decod('data/databases/'+str(database)+"/"+str(table))
                     reg = tup.readAll()
                     return reg
                 else:
@@ -139,8 +151,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    tabs=self.database.bus(database)
-                    tup=tabs.extractTable(database,table)
+                    #tabs=self.database.bus(database)
+                    #tup=tabs.extractTable(database,table)
+                    tup = decod('data/databases/'+str(database)+"/"+str(table))
                     reg = tup.readRange(columnNumber,lower,upper)
                     return reg
                 else:
@@ -158,7 +171,8 @@ class Main:
                     tabs=self.database.bus(database)
                     col=tabs.Tabs[table].countCol
                     if col==len(register):
-                        tup=tabs.extractTable(database,table)
+                        #tup=tabs.extractTable(database,table)
+                        tup = decod('data/databases/'+str(database)+"/"+str(table))
                         tup.insert(register)
                         return 0
                     else:
@@ -176,8 +190,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    tabs=self.database.bus(database)
-                    tup=tabs.extractTable(database,table)
+                    #tabs=self.database.bus(database)
+                    #tup=tabs.extractTable(database,table)
+                    tup = decod('data/databases/'+str(database)+"/"+str(table))
                     reg = tup.update(register,columns)   
                     return 0 
                 else:
@@ -192,8 +207,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    tabs=self.database.bus(database)
-                    tup=tabs.extractTable(database,table)
+                    #tabs=self.database.bus(database)
+                    #tup=tabs.extractTable(database,table)
+                    tup = decod('data/databases/'+str(database)+"/"+str(table))
                     reg = tup.delete(columns)   
                     return 0 
                 else:
@@ -223,8 +239,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    tabs=self.database.bus(database)
-                    tup=tabs.extractTable(database,table)
+                    #tabs=self.database.bus(database)
+                    #tup=tabs.extractTable(database,table)
+                    tup = decod('data/databases/'+str(database)+"/"+str(table))
                     reg = tup.extractRow(columns)
                     return reg
                 else:
@@ -249,6 +266,12 @@ class Main:
         if os.path.exists('data/databases/'+name):
             dum=True
         return dum
+    
+    def decod(self,ruta):
+        file = open(ruta+".bin", "rb")
+        b = file.read()
+        file.close()
+        return pickle.loads(b)
 
 
 
