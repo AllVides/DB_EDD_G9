@@ -17,22 +17,23 @@ El valor de retorno es un arreglo que cambia segun los datos
 	*	[None]-->  Arreglo Vacio
 	* 	[Data1,Data2,Data3] --> Arreglo Con los datos
 ```python
-	ef showDatabases() -> list:
+	def showDatabases() -> list:
 ```
 
 *  ### Modifica Nombre de bases de datos
-Parametros: 
+* Parametros: 
+
 	* databaseOld: Nombre de la base de datos que se quiere modificar 
 	* databaseNew: Nombre Nuevo de la base de datos
 
 	El valor de retorno es un entero que debe de cumplir con lo siguiente:
-	* 0 --> Operacion Exitosa
-	* 1 --> Error en la operacion
-	* 2 --> Base de Datos No Existente
-	* 3 --> Base de Datos Existente
-	```python
-		def alterDatabase(databaseOld, databaseNew) -> int:
-	```
+	*  0 --> Operacion Exitosa
+	*  1 --> Error en la operacion
+	*  2 --> Base de Datos No Existente
+	*  3 --> Base de Datos Existente
+```python
+	def alterDatabase(databaseOld, databaseNew) -> int:
+```
 	
 
 *  ### Eliminacion de bases de datos
@@ -47,13 +48,18 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ##	   Funcionalidades en Tablas
 
 *  ### Creacion de tablas en bases de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea crear.
-** * numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
+* **database:** es el nombre de la base de datos a utilizar.	
+
+* **table:** es el nombre de la tabla que se desea crear.
+
+* **numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
+
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
 	*	2 --> Base de Datos Existente
+	
+	
 ```python
 	def createTable(database: str, table: str, numberColumns: int) -> int:
 ```
@@ -68,8 +74,8 @@ El valor de retorno es un arreglo que cambia segun los datos
 ```
 
 *  ### Visualizar una tabla especifica de la  bases de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea crear.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea crear.
 El valor de retorno es un arreglo que cambia segun los datos
 	*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
 	* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
@@ -79,11 +85,11 @@ El valor de retorno es un arreglo que cambia segun los datos
 ```
 
 *  ### Visualiza una tabla con un rango especifico de la  bases de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea crear.
-** * columnNumber: ** es el número de índice de columna a restringir o verificar con los valores upper y lower.
-** * upper:** es el límite superior (inclusive) del rango a extraer de la columna indicada de la tabla.
-** * lower:** es el límite inferior (inclusive) del rango a extraer de la columna indicada de la tabla.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea crear.
+* **columnNumber:** es el número de índice de columna a restringir o verificar con los valores upper y lower.
+* **upper:** es el límite superior (inclusive) del rango a extraer de la columna indicada de la tabla.
+* **lower:** es el límite inferior (inclusive) del rango a extraer de la columna indicada de la tabla.
 El valor de retorno es un arreglo que cambia segun los datos
 	*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
 	* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
@@ -93,9 +99,9 @@ El valor de retorno es un arreglo que cambia segun los datos
 ```
 
 *  ### Asocia llave primaria o compuesta en tablas de la bases de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea crear.
-** * columns:** es el listado de números de columnas que formarán parte de la llave primaria. 
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea crear.
+* **columns:** es el listado de números de columnas que formarán parte de la llave primaria. 
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -109,8 +115,8 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 
 *  ### Elimina la llave primaria actual en la información de la tabla en la base de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
 El valor de retorno es un arreglo que cambia segun los datos
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -123,9 +129,9 @@ El valor de retorno es un arreglo que cambia segun los datos
 
 *  ### Renombra el nombre de la tabla de una base de datos especificada
 Parametros: 
-	* database: es el nombre de la base de datos a utilizar.
-	* tableOld: es el nombre de la tabla a renombrar.
-	* tableNew: es el nuevo nombre con que renombrará la tableOld.
+	* **database:** es el nombre de la base de datos a utilizar.
+	* **tableOld:** es el nombre de la tabla a renombrar.
+	* **tableNew:** es el nuevo nombre con que renombrará la tableOld.
 Valor de retorno: 0 operación exitosa, 1 error en la operación, 2 database no existente, 3 tableOld no existente, 4 tableNew existente.
 	El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
@@ -138,9 +144,9 @@ Valor de retorno: 0 operación exitosa, 1 error en la operación, 2 database no 
 	```
 
 *  ### Agrega una columna al final de cada registro de la tabla y base de datos especificada
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea modificar.
-** * default:** es el valor que se establecerá en a la nueva columna para los registros existentes.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea modificar.
+* **default:** es el valor que se establecerá en a la nueva columna para los registros existentes.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -152,8 +158,8 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 
 *  ### Eliminar una n-ésima columna de cada registro de la tabla excepto si son llaves primarias.
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea eliminar.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea eliminar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -167,8 +173,8 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 
 *  ### Elimina por completo una tabla de una base de datos especificada. 
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea eliminar.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea eliminar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -181,9 +187,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 
 *  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar
-** * register:** es una lista de elementos que representan un registro.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar
+* **register:** es una lista de elementos que representan un registro.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -196,9 +202,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 *  ### Extrae y devuelve un registro especificado por su llave primaria.
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
-** * columns: ** es la llave primaria 
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
+* **columns:** es la llave primaria 
 Valor de retorno: lista con los valores del registro, si ocurrió un error o no hay registro que mostrar devuelve una lista vacía [].
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	[	]-->  Arreglo Vacio si no hay registro o hay algun error
@@ -208,9 +214,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 *  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos.
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
-** * register:** es una lista de elementos llave:valor que representa los elementos a actualizar del registro. La llave el número de coluna y el valor el contenido del campo.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
+* **register:** es una lista de elementos llave:valor que representa los elementos a actualizar del registro. La llave el número de coluna y el valor el contenido del campo.
 Valor de retorno: lista con los valores del registro, si ocurrió un error o no hay registro que mostrar devuelve una lista vacía [].
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
@@ -223,9 +229,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 *  ### Elimina un registro de una tabla y base de datos especificados por la llave primaria.
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
-** * columns: **es la llave primaria.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
+* **columns:**es la llave primaria.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -237,9 +243,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 *  ### Elimina todos los registros de una tabla y base de datos.
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
-** * columns: **es la llave primaria.
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
+* **columns:** es la llave primaria.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -250,9 +256,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 *  ### Carga un archivo CSV de una ruta especificada indicando la base de datos y tabla donde será almacenado.
-** * Informacion Importante : **La base de datos y la tabla deben existir, y coincidir con el número de columnas. Si hay llaves primarias duplicadas se ignoran. No se utilizan títulos de columnas y la separación es por comas. 
-** * database:** es el nombre de la base de datos a utilizar.
-** * table:** es el nombre de la tabla que se desea utilizar.
+* **Informacion Importante :** La base de datos y la tabla deben existir, y coincidir con el número de columnas. Si hay llaves primarias duplicadas se ignoran. No se utilizan títulos de columnas y la separación es por comas. 
+* **database:** es el nombre de la base de datos a utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	[dato1,dato2,dato3] --> lista con los valores enteros que devuelve el insert por cada fila
 	* 	[	] --> Lista Vacia, sucedio un error o el archivo no tiene filas
