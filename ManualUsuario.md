@@ -55,9 +55,10 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 * **numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
 
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
-	*	0 --> Operacion Exitosa
-	* 	1 --> Error en la operacion
-	*	2 --> Base de Datos Existente
+
+* 0 --> Operacion Exitosa
+* 1 --> Error en la operacion
+* 2 --> Base de Datos Existente
 	
 	
 ```python
@@ -66,9 +67,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 *  ### Visualizacion tablas en la bases de datos
 El valor de retorno es un arreglo que cambia segun los datos
-	*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
-	* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
-	*	None --> Si no existe la base de datos
+*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
+* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
+*	None --> Si no existe la base de datos
 ```python
 	def showTables(database: str) -> list:
 ```
@@ -128,10 +129,10 @@ El valor de retorno es un arreglo que cambia segun los datos
 ```
 
 *  ### Renombra el nombre de la tabla de una base de datos especificada
-Parametros: 
-	* **database:** es el nombre de la base de datos a utilizar.
-	* **tableOld:** es el nombre de la tabla a renombrar.
-	* **tableNew:** es el nuevo nombre con que renombrará la tableOld.
+* Parametros: 
+* **database:** es el nombre de la base de datos a utilizar.
+* **tableOld:** es el nombre de la tabla a renombrar.
+* **tableNew:** es el nuevo nombre con que renombrará la tableOld.
 Valor de retorno: 0 operación exitosa, 1 error en la operación, 2 database no existente, 3 tableOld no existente, 4 tableNew existente.
 	El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
@@ -230,8 +231,8 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 *  ### Elimina un registro de una tabla y base de datos especificados por la llave primaria.
 * **database:** es el nombre de la base de datos a utilizar.
-* **table:** es el nombre de la tabla que se desea utilizar.
-* **columns:**es la llave primaria.
+* **table:** es el nombre de la tabla que se desea utilizar.	
+* **columns:** es la llave primaria.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -244,8 +245,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 *  ### Elimina todos los registros de una tabla y base de datos.
 * **database:** es el nombre de la base de datos a utilizar.
-* **table:** es el nombre de la tabla que se desea utilizar.
+* **table:** es el nombre de la tabla que se desea utilizar.	
 * **columns:** es la llave primaria.
+
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -261,7 +263,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 * **table:** es el nombre de la tabla que se desea utilizar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	[dato1,dato2,dato3] --> lista con los valores enteros que devuelve el insert por cada fila
-	* 	[	] --> Lista Vacia, sucedio un error o el archivo no tiene filas
+	* 	[__] --> Lista Vacia, sucedio un error o el archivo no tiene filas
 ```python
 	 def loadCSV(file: str, database: str, table: str) -> list: 
 ```
