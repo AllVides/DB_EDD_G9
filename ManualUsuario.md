@@ -1,9 +1,9 @@
-#Manual de Usuario EDD_Grupo 9
+# Manual de Usuario EDD_Grupo 9
 
-##Funciones Generales
-  ###Funcionalidades en Bases de datos
-*  ###Creacion de bases de datos
-*Solo se ingresa el nombre de la base de datos **debe de cumplir con las reglas de indentificadores en SQL**
+## Funciones Generales
+  ### Funcionalidades en Bases de datos
+*  ### Creacion de bases de datos
+* Solo se ingresa el nombre de la base de datos **debe de cumplir con las reglas de indentificadores en SQL**
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
 	* 	1 --> Error en la operacion
@@ -20,7 +20,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 	ef showDatabases() -> list:
 ```
 
-*  ###Modifica Nombre de bases de datos
+*  ### Modifica Nombre de bases de datos
 Parametros: 
 	* databaseOld: Nombre de la base de datos que se quiere modificar 
 	* databaseNew: Nombre Nuevo de la base de datos
@@ -35,7 +35,7 @@ Parametros:
 	```
 	
 
-*  ###Eliminacion de bases de datos
+*  ### Eliminacion de bases de datos
 *Solo se ingresa el nombre de la base de datos **debe de cumplir con las reglas de indentificadores en SQL**
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	*	0 --> Operacion Exitosa
@@ -46,7 +46,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 ##	   Funcionalidades en Tablas
 
-*  ###Creacion de tablas en bases de datos
+*  ### Creacion de tablas en bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
 ** *numberColumns:** es el número de columnas que tendrá cada registro de la tabla.
@@ -58,7 +58,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	def createTable(database: str, table: str, numberColumns: int) -> int:
 ```
 
-*  ###Visualizacion tablas en la bases de datos
+*  ### Visualizacion tablas en la bases de datos
 El valor de retorno es un arreglo que cambia segun los datos
 	*	[	]-->  Arreglo Vacio si no hay tablas en la base de datos
 	* 	[Data1,Data2,Data3] --> Arreglo Con las tablas en dicha base
@@ -67,7 +67,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 	def showTables(database: str) -> list:
 ```
 
-*  ###Visualizar una tabla especifica de la  bases de datos
+*  ### Visualizar una tabla especifica de la  bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
 El valor de retorno es un arreglo que cambia segun los datos
@@ -78,7 +78,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 	def extractTable(database: str, table: str) -> list:
 ```
 
-*  ###Visualiza una tabla con un rango especifico de la  bases de datos
+*  ### Visualiza una tabla con un rango especifico de la  bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
 ** *columnNumber: ** es el número de índice de columna a restringir o verificar con los valores upper y lower.
@@ -92,7 +92,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 	def extractRangeTable(database: str, table: str, columnNumber: int, lower: any, upper: any) -> list:
 ```
 
-*  ###Asocia llave primaria o compuesta en tablas de la bases de datos
+*  ### Asocia llave primaria o compuesta en tablas de la bases de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea crear.
 ** *columns:** es el listado de números de columnas que formarán parte de la llave primaria. 
@@ -108,7 +108,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 
-*  ###Elimina la llave primaria actual en la información de la tabla en la base de datos
+*  ### Elimina la llave primaria actual en la información de la tabla en la base de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
 El valor de retorno es un arreglo que cambia segun los datos
@@ -121,7 +121,7 @@ El valor de retorno es un arreglo que cambia segun los datos
 	def extractTable(database: str, table: str) -> list:
 ```
 
-*  ###Renombra el nombre de la tabla de una base de datos especificada
+*  ### Renombra el nombre de la tabla de una base de datos especificada
 Parametros: 
 	* database: es el nombre de la base de datos a utilizar.
 	* tableOld: es el nombre de la tabla a renombrar.
@@ -137,7 +137,7 @@ Valor de retorno: 0 operación exitosa, 1 error en la operación, 2 database no 
 		def alterTable(database: str, tableOld: str, tableNew: str) -> int:
 	```
 
-*  ###Agrega una columna al final de cada registro de la tabla y base de datos especificada
+*  ### Agrega una columna al final de cada registro de la tabla y base de datos especificada
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea modificar.
 ** *default:** es el valor que se establecerá en a la nueva columna para los registros existentes.
@@ -151,7 +151,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 
-*  ###Eliminar una n-ésima columna de cada registro de la tabla excepto si son llaves primarias.
+*  ### Eliminar una n-ésima columna de cada registro de la tabla excepto si son llaves primarias.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea eliminar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
@@ -166,7 +166,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ```
 
 
-*  ###Elimina por completo una tabla de una base de datos especificada. 
+*  ### Elimina por completo una tabla de una base de datos especificada. 
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea eliminar.
 El valor de retorno es un entero que debe de cumplir con lo siguiente:
@@ -180,7 +180,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 ##	   Funcionalidades en Tuplas
 
 
-*  ###Inserta un registro en la estructura de datos asociada a la tabla y la base de datos
+*  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar
 ** *register:** es una lista de elementos que representan un registro.
@@ -195,7 +195,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	 def insert(database: str, table: str, register: list) -> int:
 ```
 
-*  ###Extrae y devuelve un registro especificado por su llave primaria.
+*  ### Extrae y devuelve un registro especificado por su llave primaria.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
 ** *columns: ** es la llave primaria 
@@ -207,7 +207,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	  def extractRow(database: str, table: str, columns: list) -> list:
 ```
 
-*  ###Inserta un registro en la estructura de datos asociada a la tabla y la base de datos.
+*  ### Inserta un registro en la estructura de datos asociada a la tabla y la base de datos.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
 ** *register:** es una lista de elementos llave:valor que representa los elementos a actualizar del registro. La llave el número de coluna y el valor el contenido del campo.
@@ -222,7 +222,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	  def update(database: str, table: str, register: dict, columns: list) -> int: 
 ```
 
-*  ###Elimina un registro de una tabla y base de datos especificados por la llave primaria.
+*  ### Elimina un registro de una tabla y base de datos especificados por la llave primaria.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
 ** * columns: **es la llave primaria.
@@ -236,7 +236,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	 def delete(database: str, table: str, columns: list) -> int:
 ```
 
-*  ###Elimina todos los registros de una tabla y base de datos.
+*  ### Elimina todos los registros de una tabla y base de datos.
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
 ** * columns: **es la llave primaria.
@@ -249,7 +249,7 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 	 def truncate(database: str, table: str) -> int:
 ```
 
-*  ###Carga un archivo CSV de una ruta especificada indicando la base de datos y tabla donde será almacenado.
+*  ### Carga un archivo CSV de una ruta especificada indicando la base de datos y tabla donde será almacenado.
 ** * Informacion Importante : **La base de datos y la tabla deben existir, y coincidir con el número de columnas. Si hay llaves primarias duplicadas se ignoran. No se utilizan títulos de columnas y la separación es por comas. 
 ** * database:** es el nombre de la base de datos a utilizar.
 ** * table:** es el nombre de la tabla que se desea utilizar.
