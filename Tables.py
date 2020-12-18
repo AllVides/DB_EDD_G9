@@ -5,7 +5,7 @@ class TabsStruct:
         # numero de columnas
         self.countCol = cols
         # tuplas con estructura de ISAM
-        self.tuplas = Indice([0])
+        self.tuplas = Indice([cols+1],)#tambien pasar ruta de la tabla)
         # nombre de la tabla
         self.name = name
         # nombre de la db
@@ -58,6 +58,9 @@ class Tables:
     def alterDropColumn(self,database, table, columnNumber):
         pass
 
+    def truncate(self,table,ruta):
+        pk=self.Tabs[table].tuplas.pkey
+        self.Tabs[table].tuplas=Indice(pk,ruta)
 
 f = Tables()
 # crear Tablas
