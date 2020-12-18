@@ -54,7 +54,6 @@ class Main:
                     return 3
                 else:
                     self.initCheck(str(database)+"/"+str(table))
-                    self.database
                     return 0
             else:
                 return 2 
@@ -89,7 +88,8 @@ class Main:
                     if self.verificador(str(database)+"/"+str(tableOld)):
                         return 4
                     else:
-                        self.database.tables.alterTable(database,tableOld,tableNew)
+                        tabs=self.database.bus(database)
+                        tabs.alterTable(database,tableOld,tableNew)
                         return 0
                 else:
                     return 3
@@ -123,7 +123,9 @@ class Main:
         try:
             if self.verificador(database):
                 if self.verificador(str(database)+"/"+str(table)):
-                    reg = self.database.tables.extractTable(database,table)
+                    tabs=self.database.bus(database)
+                    tup=tabs.extractTable(database,table)
+                    reg = tup.readAll()
                     return reg
                 else:
                     return None
@@ -133,28 +135,104 @@ class Main:
             return None
 
     
-    def extractRangeTable(self,database: str, table :str, lower: Any, upper: Any) -> list:
-        print("entrae una tabla y lo devuelve en lista pero en un rango especifico")
+    def extractRangeTable(self,database: str, table: str, columnNumber: int, lower: any, upper: any) -> list:
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    tup=tabs.extractTable(database,table)
+                    reg = tup.readRange(columnNumber,lower,upper)
+                    return reg
+                else:
+                    return None
+            else:
+                return None
+        except error:
+            return None
 
     # FUNCIONES DENTRO DE LAS TUPLAS
     def insert(self,database: str, table :str, register: list) -> int:
-        print("ingresa datos")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    col=tabs.Tabs[table].countCol
+                    if col==len(register):
+                        tup=tabs.extractTable(database,table)
+                        tup.insert(register)
+                        return 0
+                    else:
+                        return 5
+                    
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
 
     
     def update(self,database: str, table :str, register: dict, columns: list) -> int:
-        print("inserta dato")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    tup=tabs.extractTable(database,table)
+                    reg = tup.update(register,columns)   
+                    return 0 
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
 
     
     def delete(self,database: str, table: str, columns: list) -> int:
-        print("elimina datos de una tabla")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    tup=tabs.extractTable(database,table)
+                    reg = tup.delete(columns)   
+                    return 0 
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
 
     
     def truncate(self,database: str, table: str) -> int:
-        print("elimina un registro")
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    tup=tabs.truncate(table,'data/databases/'+str(database)+"/"+str(table))
+                    return 0
+                else:
+                    return 3
+            else:
+                return 2
+        except error:
+            return 1
 
     
-    def extractRow(self,database, table, id): 
-        print("extrae y devuelve una tupla especificada")
+    def extractRow(self,database: str, table: str, columns: list) -> list:
+        try:
+            if self.verificador(database):
+                if self.verificador(str(database)+"/"+str(table)):
+                    tabs=self.database.bus(database)
+                    tup=tabs.extractTable(database,table)
+                    reg = tup.extractRow(columns)
+                    return reg
+                else:
+                    return None
+            else:
+                return None
+        except error:
+            return None
 
 
     # METODOS EXTRAS 
