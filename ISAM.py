@@ -1,4 +1,6 @@
-from Cilindro import Cilindro, Registro
+from Cilindro import Cilindro
+import BinWriter as bin
+import os
 
 class Indice:
     def __init__(self, pkey, ruta):
@@ -6,18 +8,47 @@ class Indice:
         self.intervalo = 30
         self.pkey = pkey
         self.ruta = ruta
+        self.readI()
+
+    def readI(self):
+        if os.path.exists(self.ruta+"/indx.b"):
+            data = bin.read(self.ruta+"/indx.b")
+            i = 0
+            for d in data:
+                if type(d) is str:
+                    self.indx[i] = Cilindro(d, self.pkey, i, self.ruta)
+                elif type(d) is list:
+                    self.pkey = d
+                elif d is None:
+                    self.indx[i] = None
+                i+=1
+
+    def writeI(self):
+        data=[]
+        for x in self.indx:
+            if x != None:
+                data.append(x.nombre)
+            else:
+                data.append(None)
+        data.append(self.pkey)
+        bin.write(data, self.ruta+"/indx.b")
 
     def insert(self, registro):
         val = []
-        for key in self.pkey:
-            val.append(registro[key])
-        if type(val[0]) is int:
-            i = self._hashn(val[0])
-        else:
-            i = self._hashl(val[0])
-        if self.indx[i] == None:
-            self.indx[i] = Cilindro("CS"+str(i), self.pkey, i, self.ruta)
-        return self.indx[i].insert(registro)
+        try:
+            for key in self.pkey:
+                val.append(registro[key])
+            if type(val[0]) is int:
+                i = self._hashn(val[0])
+            else:
+                i = self._hashl(val[0])
+            if self.indx[i] == None:
+                self.indx[i] = Cilindro("CS"+str(i), self.pkey, i, self.ruta)
+                bin.write([None]*30, self.ruta +"/"+ "CS"+str(i)+".b")
+                self.writeI()
+            return self.indx[i].insert(registro)
+        except:
+            return 1
 
     def _hashl(self, key):
         fst = ord(key[0].upper())
@@ -27,87 +58,61 @@ class Indice:
         return (key // 30) % self.intervalo
 
     def update(self, register, val):
-        if type(val[0]) is int:
-            i = self._hashn(val[0])
-        else:
-            i = self._hashl(val[0])
-        return self.indx[i].update(register, val)
+        try:
+            if type(val[0]) is int:
+                i = self._hashn(val[0])
+            else:
+                i = self._hashl(val[0])
+            return self.indx[i].update(register, val)
+        except:
+            return 1
 
-    def delete(self, val): #probar borrar overflow
-        if type(val[0]) is int:
-            i = self._hashn(val[0])
-        else:
-            i = self._hashl(val[0])
-        return self.indx[i].delete(val)
+    def delete(self, val):
+        try:
+            if type(val[0]) is int:
+                i = self._hashn(val[0])
+            else:
+                i = self._hashl(val[0])
+            return self.indx[i].delete(val)
+        except:
+            return 1
 
     def extractRow(self, val):
-        if type(val[0]) is int:
-            i = self._hashn(val[0])
-        else:
-            i = self._hashl(val[0])
-        return self.indx[i].extractRow(val)
+        try:
+            if type(val[0]) is int:
+                i = self._hashn(val[0])
+            else:
+                i = self._hashl(val[0])
+            return self.indx[i].extractRow(val)
+        except:
+            return 1
 
     def readAll(self):
         data=[]
-        for cil in self.indx:
-            if cil == None:
-                continue
-            data.extend(cil.readAll())
-        return data
+        try:
+            for cil in self.indx:
+                if cil == None:
+                    continue
+                data.extend(cil.readAll())
+            return data
+        except:
+            return None
 
     def readRange(self, columnNumber ,lower, upper):
         data = []
-        for cil in self.indx:
-            if cil == None:
-                continue
-            data.extend(cil.readRange(columnNumber, lower, upper))
-        return data
+        try:
+            for cil in self.indx:
+                if cil == None:
+                    continue
+                data.extend(cil.readRange(columnNumber, lower, upper))
+            return data
+        except:
+            return None
 
+    #actualiza todos los registros a su version mas reciente y reescribe el indice a su version mas reciente
+    def refreshMem(self):
+        for x in self.indx:
+            if x != None:
+                x.indx = bin.read(self.ruta +"/"+ x.nombre + ".b")
+        self.writeI()
 
-i = Indice([1], "c")
-
-s = 0
-d = "a"
-#while s < 90:
- #   print(i.insert([ d,s]))
-  #  s += 10
-
-i.insert([1, 'Guatemala',    'Guatemala',    'GTM'])
-i.insert([2, 'Cuilapa',      'Santa Rosa',   'GTM'])
-i.insert([3, 'San Salvador', 'San Salvador', 'SLV'])
-i.insert([5, 'Peten', 'Yucatan', 'aaa'])
-i.insert([4, 'San Miguel',   'San Miguel',   'SLV'])
-f = i.readAll()
-for x in f:
-    print(x)
-
-print()
-print(i.update({2:"ahora", 3:"nunca"}, ["Peten"]))
-print(i.delete(['Guatemala']))
-print(i.extractRow(['San Salvador']))
-print()
-f = i.readAll()
-for x in f:
-    print(x)
-""""
-f = i.readAll()
-for x in f:
-    print(x)
-print()
-r = i.readRange(1, "g","s")
-for x in r:
-    print(x)
-print()
-f = i.indx[0].readAll()
-for x in f:
-    print(x)
-print()
-#f = i.indx[2].readAll()
-#for x in f:
-  #  print(x)
-  """
-
-i.insert([1, 'Guatemala',    'Guatemala',    'GTM'])
-i.insert([2, 'Cuilapa',      'Santa Rosa',   'GTM'])
-i.insert([3, 'San Salvador', 'San Salvador', 'SLV'])
-i.insert([4, 'San Miguel',   'San Miguel',   'SLV'])
