@@ -14,8 +14,9 @@ El valor de retorno es un entero que debe de cumplir con lo siguiente:
 
 *  ### Visualizacion de bases de datos
 El valor de retorno es un arreglo que cambia segun los datos
-	*	[None]-->  Arreglo Vacio
-	* 	[Data1,Data2,Data3] --> Arreglo Con los datos
+
+* [None]-->  Arreglo Vacio
+* [Data1,Data2,Data3] --> Arreglo Con los datos
 ```python
 	def showDatabases() -> list:
 ```
