@@ -37,18 +37,53 @@ class Tables:
         return names
 
     def extractTable(self, table):
-        return self.Tabs[table].tuplas.readAll()
+        try:
+            return self.Tabs[table].tuplas.readAll()
+        except expression:
+            return None
+        
 
     def extractRangeTable(self, table, column, lower, upper):
-        return self.Tabs[table].tuplas.readRange(column, lower, upper)
+        try:
+            return self.Tabs[table].tuplas.readRange(column, lower, upper)
+        except expression:
+            return None
+        
 
     # revisar bien
     def alterAddPK(self, table, columns):
-        self.Tabs[table].pks = columns
-        self.Tabs[table].tuplas.pkey = columns
+        try:
+            if table in self.Tabs:
+                if len(columns) <= self.Tabs[table].countCol:
+                    for x in columns:
+                        if not columns[x] in self.Tabs[table].pks:
+                            self.Tabs[table].pks.append(columns[x])
+                            self.Tabs[table].tuplas.pkey.append(columns[x])
+                        else:
+                            return 4
+                    return 0
+                else:
+                    return 5
+            else:
+                return 3
+        except expression:
+            return 1
+        
 
     def alterDropPK(self, table):
-        self.Tabs[table].pks = []
+        try:
+            if table in self.Tabs:
+                if len(self.Tabs[table].pks) != 0:
+                    self.Tabs[table].pks = []
+                    self.Tabs[table].tuplas.pkey = []
+                    return 0
+                else:
+                    return 4
+            else:
+                return 3
+        except expression:
+            return 1
+        
 
     def alterTable(self, tableOld, tableNew, ruta):
         try:
