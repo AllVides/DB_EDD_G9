@@ -1,84 +1,165 @@
 from ISAM import *
+from Cilindro import Registro as r
+import os
+import pickle
+import shutil
+
 
 class TabsStruct:
-    def __init__(self, db, name, cols,ruta):
+    def __init__(self, name, cols, ruta):
         # numero de columnas
         self.countCol = cols
         # nombre de la tabla
         self.name = name
-        # nombre de la db
-        self.db = db
-        #llaves primarias
-        self.pks=[0]
+        # llaves primarias
+        self.pks = []
         # tuplas con estructura de ISAM
-        self.tuplas = Indice(self.pks,ruta)#tambien pasar ruta de la tabla)
-
+        self.tuplas = Indice(self.pks, ruta)  # tambien pasar ruta de la tabla)
 
 
 class Tables:
     def __init__(self):
         self.Tabs = {}
 
-    def createTable(self, database, table, numberColumns,ruta):
-        tab = TabsStruct(database, table, numberColumns,ruta)
-        # self.Tabs[table]=[database,table,numberColumns]
-        self.Tabs[table] = tab
+    def createTable(self, table, numberColumns, ruta):
+        if not table in self.Tabs:
+            self.initCheck(str(ruta)+"/"+str(table))
+            tab = TabsStruct(table, numberColumns, 'data/databases'+ruta+"/"+str(table))
+            self.Tabs[table] = tab
+            return 0
+        else:
+            return 3
 
-    def showTables(self, db):
-        # este a nivel de db
+    def showTables(self):
         names = []
         for tabs in self.Tabs:
             names.append(self.Tabs[tabs].name)
         return names
 
-    def dropTable(self, database, table):
-        del self.Tabs[table]
+    def extractTable(self, table):
+        return self.Tabs[table].tuplas.readAll()
 
-    def extractTable(self, database, table):
-        # -******-*-*-*-*********-*-*-*-
-        # extrae las tuplas de dicha tabla, por el momento solo la tabla
-        return self.Tabs[table].tuplas
-
-    def extractRangeTable(self,database, table, column, lower, upper):
+    def extractRangeTable(self, table, column, lower, upper):
         return self.Tabs[table].tuplas.readRange(column, lower, upper)
 
-    def alterAddPK(self,database, table, columns):
-        self.Tabs[table].pks=columns
-        self.Tabs[table].tuplas.pkey=columns
-
+    # revisar bien
+    def alterAddPK(self, table, columns):
+        self.Tabs[table].pks = columns
+        self.Tabs[table].tuplas.pkey = columns
 
     def alterDropPK(self, table):
-        self.Tabs[table].pks=[]
+        self.Tabs[table].pks = []
 
-    def alterTable(self,database, tableOld, tableNew):
-        temp = self.Tabs[tableOld]
-        del self.Tabs[tableOld]
-        self.createTable(temp.db, tableNew, temp.countCol)
-        self.Tabs[tableNew].tuplas=temp.tuplas
-        return 0
+    def alterTable(self, tableOld, tableNew, ruta):
+        try:
+            if tableOld in self.Tabs:
+                if not tableNew in self.Tabs:
+                    temp = self.Tabs[tableOld]
+                    self.dropTable(tableOld, ruta)
+                    self.createTable(tableNew, temp.countCol, ruta)
+                    self.Tabs[tableNew].pks = temp.pks
+                    self.Tabs[tableNew].tuplas = temp.tuplas
+                    return 0
+                else:
+                    return 4
+            else:
+                return 3
+        except expression:
+            return 1
 
-    def alterAddColumn(self,database, table, default):
-        self.Tabs[table].countCol=self.Tabs[table].countCol+1
+    def alterAddColumn(self, table, default):
+        self.Tabs[table].countCol += 1
+        # agregar alter add column de Registro
+        return self.Tabs[table]
 
-    def alterDropColumn(self,database, table, columnNumber):
+    def alterDropColumn(self, table, columnNumber):
         if self.Tabs[table].countCol > 0:
-            self.Tabs[table].countCol=self.Tabs[table].countCol-1
+            self.Tabs[table].countCol -= 1
+            # agregar alter drop column de Registro
+            return self.Tabs[table]
 
-    def truncate(self,table,ruta):
-        pk=self.Tabs[table].tuplas.pkey
-        self.Tabs[table].tuplas=Indice(pk,ruta)
+    def dropTable(self, table, ruta):
+        try:
+            if table in self.Tabs:
+                del self.Tabs[table]
+                shutil.rmtree("data/databases/"+str(ruta)+"/"+str(table))
+                return 0
+            else:
+                return 3
+        except expression:
+            return 1
+
+    def insert(self, table, register):
+        try:
+            if table in self.Tabs:
+                if len(register) == self.Tabs[table].countCol:
+                    return self.Tabs[table].tuplas.insert(register)
+                else:
+                    return 5
+            else:
+                return 3
+        except expression:
+            return 1
+
+    def extractRow(self, table, columns):
+        try:
+            if table in self.Tabs:
+                return self.Tabs[table].tuplas.extractRow(columns)
+            else:
+                return []
+        except expression:
+            return []
+
+    def update(self, table, register, columns):
+        try:
+            if table in self.Tabs:
+                return self.Tabs[table].tuplas.update(register,columns) 
+            else:
+                return 3
+        except expression:
+            return 1
+
+    def delete(self, table, columns):
+        try:
+            if table in self.Tabs:
+                return self.Tabs[table].tuplas.delete(columns)
+            else:
+                return 3
+        except expression:
+            return 1
+
+    def truncate(self, table, ruta):
+        try:
+            if table in self.Tabs:
+                pk = self.Tabs[table].tuplas.pkey
+                self.Tabs[table].tuplas = Indice(pk, 'data/databases'+ruta+"/"+str(table))
+                return 0
+            else:
+                return 3
+        except expression:
+            return 1
+        
+
+    def initCheck(self, name):
+        if not os.path.exists('data/databases/'+name):
+            os.makedirs('data/databases/'+name)
+
 
 f = Tables()
 # crear Tablas
-f.createTable("Db1", "tab1", 0)
-f.createTable("Db2", "tab2", 0)
-f.createTable("Db2", "tab3", 0)
+f.createTable("tab1", 0, "db1")
+f.createTable("tab2", 0, "db1")
+f.createTable("tab3", 0, "db1")
+print(f.createTable("tab1", 0, "db1"))
+f.dropTable("tab1", "db1")
+f.alterTable("tab2","tab4","db1")
 
+'''
 # Eliminar una tabla
 f.dropTable("Db1", "tab1")
 '''
 for tabs in f.Tabs:
-    print(tabs, ":", f.Tabs[tabs])
+    print(tabs, ":", f.Tabs[tabs].name)
 '''
 
 for tabs in f.Tabs:
@@ -92,3 +173,4 @@ f.alterTable("ds","tab2","tab4")
 for tabs in f.Tabs:
     print(tabs, ":", str(f.Tabs[tabs].name) +
           str(f.Tabs[tabs].countCol)+str(f.Tabs[tabs].tuplas))
+'''
