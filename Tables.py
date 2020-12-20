@@ -39,8 +39,8 @@ class Tables:
         # extrae las tuplas de dicha tabla, por el momento solo la tabla
         return self.Tabs[table].tuplas
 
-    def extractRangeTable(self,database, table, lower, upper):
-        pass
+    def extractRangeTable(self,database, table, column, lower, upper):
+        return self.Tabs[table].tuplas.readRange(column, lower, upper)
 
     def alterAddPK(self,database, table, columns):
         self.Tabs[table].pks=columns
