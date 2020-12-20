@@ -35,10 +35,10 @@ class Ventana(tk.Toplevel):
 
         button1 = Button(self, text= 'Atras', padx= 15, pady=6, bg= 'grey',fg='white',command=self.ventana3)
         button1.grid(row=8, column=0)
-        button5 = Button(self, text= 'Enter to Base', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
-        button5.grid(row=8, column=10)
-        button2 = Button(self, text= 'Function Data', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
-        button2.grid(row=8, column=15)
+#        button5 = Button(self, text= 'Enter to Base', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
+ #       button5.grid(row=8, column=10)
+  #      button2 = Button(self, text= 'Function Data', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
+   #     button2.grid(row=8, column=15)
         
         
         self.parent.withdraw()

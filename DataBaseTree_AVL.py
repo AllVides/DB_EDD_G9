@@ -1,4 +1,8 @@
 from Tables import *
+#import ISAM.BinWriter as b
+import BinWriter as b
+import os
+import pickle
 
 
 class DataBase:
@@ -14,11 +18,26 @@ class DataBase:
 class AVLTree:
     def __init__(self):
         self.root = None
-
-    #add
+        self.arr=[]
+        self.load()
         
+
+    def load(self):
+        if os.path.exists("data/databases/Bases.b"):
+            var=b.read("data/databases/Bases.b")
+            for i in var:
+                self.add(i)
+                self.arr.append(i)
+        
+    def writer(self):
+        b.write(self.arr,"data/databases/Bases.b")
+
+
     def add(self, value):
         self.root = self._add(value, self.root)
+        self.arr.append(value)
+        self.writer()
+        
     
     def _add(self, value, tmp):
         if tmp is None: # SI esta vacio la raiz solola devuelve
@@ -81,34 +100,6 @@ class AVLTree:
         tmp.right = self.srl(tmp.right)
         return self.srr(tmp)
 
-    #traversals
-
-    def preorder(self):
-        self._preorder(self.root)
-
-    def _preorder(self, tmp):
-        if tmp:
-            print(tmp.value,end = ' ')
-            self._preorder(tmp.left)            
-            self._preorder(tmp.right)
-
-    def inorder(self):
-        self._inorder(self.root)
-
-    def _inorder(self, tmp):
-        if tmp:
-            self._inorder(tmp.left)
-            print(tmp.value,end = ' ')
-            self._inorder(tmp.right)
-
-    def postorder(self):
-        self._postorder(self.root)
-
-    def _postorder(self, tmp):
-        if tmp:
-            self._postorder(tmp.left)            
-            self._postorder(tmp.right)
-            print(tmp.value,end = ' ')
            
     def Eliminar(self,value):
         self.root=self._eliminar(value,self.root)
@@ -174,31 +165,38 @@ class AVLTree:
 
     def grafo(self):
         if self.root !=None:
-            print("digraph G { ")
-            print('graph [ordering="out"];\n randkdir=TB;\nnode [shape=circule];')
+            g=open("grafo.dot","w")
+            g.write("digraph G { ")
+            g.write('graph [ordering="out"];\n randkdir=TB;\nnode [shape=circule];')
             
-            self._grafo(self.root)
-            print("\n}")
+            g=self._grafo(g,self.root)
+            g.write("\n}")
+            g.close()
+            os.system('dot -Tpng grafo.dot -o AvlData.png')
+            os.system('AvlData.png')
             
     
 
-    def _grafo(self,actual):
+    def _grafo(self,f,actual):
         if actual:
-            print(str(actual.value)+'[ label ="'+str(actual.value)+'"];\n')
-            self._grafo(actual.left)
-            self._grafo( actual.right )
+            f.write(str(actual.value)+'[ label ="'+str(actual.value)+'"];\n')
+            self._grafo(f,actual.left)
+            self._grafo( f,actual.right )
             if actual.left:
-                print(str(actual.value)+"->"+str(actual.left.value)+";\n")
+                f.write(str(actual.value)+"->"+str(actual.left.value)+";\n")
             if actual.right:
-                print(str(actual.value)+"->"+str(actual.right.value)+";\n")
+                f.write(str(actual.value)+"->"+str(actual.right.value)+";\n")
         
+        return f
+
+
     def modicar(self,name,NewName):
         nodo=DataBase(NewName)
         nodo.tables=self.bus(name)
-        
+  #      self.modwrite(name)
         self.Eliminar(name)
         
-        nodo=self.add(nodo.value,nodo.tables)
+        nodo=self.add(nodo.value)
         
         
             
@@ -214,18 +212,9 @@ class AVLTree:
                 temp = temp.left
         return None
 
-    def _imprimir(self,actual):
-        if actual:
-            
-            self._imprimir(actual.left)
-            self._imprimir(actual.right)
-            if actual.left:
-                print(str(actual.value)+" -> "+ str(actual.tables.showTables("FALTA PRUEBA"))+";\n")
-            if actual.right:
-                print(str(actual.value)+" -> "+str(actual.tables.showTables("FALTA PRUEBA"))+";\n")
-
+    
     def imprimir(self):
-        self._imprimir(self.root)
+        return self.arr
 
     def verificar(self,valor):
         band=False
@@ -240,36 +229,17 @@ class AVLTree:
 
         return band
     
-#init
 
+
+#init
+'''
 t = AVLTree()
 
 #add
-diccionario1={1:"hola ",2:"como ",3:"estas?"}
-diccionario2={1:"bien ",2:" y ",3:" tu ?"}
-diccionario3={1:" Me ",2:" llamo ",3:" mynor"}
 
-t.add("base1",diccionario1)
-t.add("base2",diccionario2)
-t.add("base3",diccionario3)
-t.add("base4",diccionario1)
-t.add("base5",diccionario2)
-t.add("base6",diccionario3)
-t.add("base7",diccionario1)
-t.add("base8",diccionario1)
-t.add("base9",diccionario1)
-t.add("base10",diccionario2)
-t.add("base11",diccionario3)
-t.add("base12",diccionario3)
-t.add("base13",diccionario2)
-t.add("base14",diccionario2)
-t.grafo()
-#print traversals
-#t.preorder()
-
-#t.Eliminar("base4")
-#t.add("1005")
-t.modicar("base4","hola32")
-t.add("hola5000",diccionario1)
-t.Eliminar("base1")
-t.inorder()
+t.add("base1")
+t.add("base2")
+t.add("base3")
+t.add("prueba1")
+t.modicar("base1","hola1")
+t.grafo() '''

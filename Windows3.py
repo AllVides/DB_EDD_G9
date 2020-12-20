@@ -29,14 +29,16 @@ class Ventana(tk.Toplevel):
         label1 = Label(self, text="\nSelect your Data Base\n\n\n")
         label1.config(font=("Verdana", 15))
         label1.grid(row=1, column=10)
-        comboExample = ttk.Combobox(self,
-                                    values=[
-                                        "Base1",
-                                        "Base2",
-                                        "Base3",
-                                        "Base4"])
 
-        comboExample.grid(row=3,column=10)
+        self.bases=tk.StringVar(self)
+        self.bases.set('Seleccionar...')
+        
+        opciones = ['1','2', '3', '4', '5', '6', '7']
+        menu = tk.OptionMenu(self, self.bases, *opciones)
+        menu.config(width=20)
+        menu.grid(row = 0, column = 1, padx = 30, pady = 30)
+
+        
 
         button1 = Button(self, text= 'Atras', padx= 15, pady=6, bg= 'grey',fg='white',command=self.ventana2)
         button1.grid(row=8, column=0)
@@ -58,6 +60,8 @@ class Ventana(tk.Toplevel):
     def Ventana5(self):
         self.destroy()
         Windows5.Ventana(self.parent)
+        print(self.bases.get())
+        
 
     def close(self):
         self.parent.destroy()
