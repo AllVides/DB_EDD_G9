@@ -173,7 +173,18 @@ class Tables:
                 return 3
         except expression:
             return 1
-        
+
+    def loadCSV(self,filepath, table) :
+        try:
+            res = []
+            import csv
+            with open(filepath, 'r') as file:
+                reader = csv.reader(file, delimiter = ',')
+                for row in reader:
+                    res.append(self.insert(table,row))
+            return res
+        except:
+            return []
 
     def initCheck(self, name):
         if not os.path.exists('data/databases/'+name):
@@ -188,6 +199,7 @@ f.createTable("tab3", 0, "db1")
 print(f.createTable("tab1", 0, "db1"))
 f.dropTable("tab1", "db1")
 f.alterTable("tab2","tab4","db1")
+f.insert("tab3",[0,"qwq"])
 
 '''
 # Eliminar una tabla
