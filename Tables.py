@@ -58,7 +58,7 @@ class Tables:
                     for x in columns:
                         if not columns[x] in self.Tabs[table].pks:
                             self.Tabs[table].pks.append(columns[x])
-                            self.Tabs[table].tuplas.pkey.append(columns[x])
+                            self.Tabs[table].tuplas.pkey.extend(columns[x])
                         else:
                             return 4
                     return 0
