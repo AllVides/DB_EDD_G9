@@ -1,4 +1,4 @@
-from ISAM import *
+from ISAM import Indice
 from Cilindro import Registro as r
 import os
 import pickle
