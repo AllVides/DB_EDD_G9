@@ -27,7 +27,8 @@ class Ventana2(tk.Toplevel):
         button1.grid(row=15, column=0)
         button5 = Button(self, text= 'Serch', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Open_Archive)
         button5.grid(row=15, column=3)
-      
+        button5 = Button(self, text= 'Siguiente', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana3)
+        button5.grid(row=15, column=5)
         # Expandir verticalmente la fila 0.
 
         self.parent.withdraw()

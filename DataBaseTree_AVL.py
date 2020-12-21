@@ -19,8 +19,18 @@ class AVLTree:
     def __init__(self):
         self.root = None
         self.arr=[]
+        self.eliminados=[]
         self.load()
+        self.loadE()
         
+    def Elim(self,dato):
+        b.write(self.arr,"data/databases/EBases.b")
+
+    def loadE(self):
+        if os.path.exists("data/databases/EBases.b"):
+            var=b.read("data/databases/EBases.b")
+            for i in var:
+                self.eliminados.append(i)
 
     def load(self):
         if os.path.exists("data/databases/Bases.b"):
@@ -102,8 +112,10 @@ class AVLTree:
 
            
     def Eliminar(self,value):
+        self.Elim(value)
+        self.eliminados.append(value)
         self.root=self._eliminar(value,self.root)
-    
+        
 
     def _eliminar(self, valor,nodo):
 
@@ -214,6 +226,13 @@ class AVLTree:
 
     
     def imprimir(self):
+        
+        if len(self.eliminados)!=0:
+            for i in self.eliminados:
+                for j in self.arr:
+                    if i==j:
+                        self.arr.remove(i)
+        self.grafo()
         return self.arr
 
     def verificar(self,valor):
@@ -229,17 +248,6 @@ class AVLTree:
 
         return band
     
+d=AVLTree()
 
-
-#init
-'''
-t = AVLTree()
-
-#add
-
-t.add("base1")
-t.add("base2")
-t.add("base3")
-t.add("prueba1")
-t.modicar("base1","hola1")
-t.grafo() '''
+print(d.imprimir())

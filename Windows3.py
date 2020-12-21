@@ -6,6 +6,8 @@ import Windows2
 import Windows4
 import Windows5
 import WindowMain
+import MainG as m
+import os
 
 
 class Ventana(tk.Toplevel):
@@ -14,17 +16,18 @@ class Ventana(tk.Toplevel):
         self.parent = parent
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.parent.title("ventana 3")
-      
+        self.basesdatos=[]
+        self.b()
         self.parent.geometry("1000x600")
         self.parent.title(" [EDD] Fase-1")
         self.parent.configure(bg='#2C3E50')
-    
-        canvas=Canvas(self)
-        canvas.pack()
-        img=Image.open('AvlData.png')
-        canvas.image =ImageTk.PhotoImage(img)
-        canvas.create_image(0,0,image=canvas.image,anchor='nw')
-        canvas.grid(row=0,column=10)
+        if os.path.exists("AvlData.png"):
+            canvas=Canvas(self)
+            canvas.pack()
+            img=Image.open('AvlData.png')
+            canvas.image =ImageTk.PhotoImage(img)
+            canvas.create_image(0,0,image=canvas.image,anchor='nw')
+            canvas.grid(row=0,column=10)
 
         label1 = Label(self, text="\nSelect your Data Base\n\n\n")
         label1.config(font=("Verdana", 15))
@@ -32,9 +35,7 @@ class Ventana(tk.Toplevel):
 
         self.bases=tk.StringVar(self)
         self.bases.set('Seleccionar...')
-        
-        opciones = ['1','2', '3', '4', '5', '6', '7']
-        menu = tk.OptionMenu(self, self.bases, *opciones)
+        menu = tk.OptionMenu(self, self.bases, *self.basesdatos)
         menu.config(width=20)
         menu.grid(row = 0, column = 1, padx = 30, pady = 30)
 
@@ -57,13 +58,22 @@ class Ventana(tk.Toplevel):
     def Ventana4(self):
         self.destroy()
         Windows4.Ventana(self.parent)
+
     def Ventana5(self):
         self.destroy()
-        Windows5.Ventana(self.parent)
+        Windows5.Ventana(self.parent,self.bases.get())
         print(self.bases.get())
         
 
     def close(self):
         self.parent.destroy()
+
         
-  
+    def b(self):
+        self.basesdatos.clear()
+        if len(m.showDatabases())!=0:
+            for k in m.showDatabases():
+                self.basesdatos.append(k)
+        elif len(self.basesdatos)==0:
+            self.basesdatos.append("l")
+            self.basesdatos.append("l")
