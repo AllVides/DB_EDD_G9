@@ -44,8 +44,9 @@ Este modulo es uno de los mas importantes para nuestra estructura de bases de da
 
 ## Requerimientos Del Sistema
 El software Tytus es una aplicacion de bases de datos que usa tecnologias diferentes para sus diferentes modulos asi:
-    * Estructuras de Datos: Tecnología basada en el lenguaje de programacion Python 
-    * Graficar: Tecnología basada en Graphviz
+
+* Estructuras de Datos: Tecnología basada en el lenguaje de programacion Python 
+* Graficar: Tecnología basada en Graphviz
 
 ## Configuracion De La Aplicación
 
