@@ -6,7 +6,7 @@ Diseño, desarrollo e implementacion de software para el manejo de bases de dato
     * Nota: El contenido del manual técnico da por hecho que el usuario tiene los conocimientos basicos de informatica.
 La universidad de San Carlos de Guatemala se dispone junto con los colaboradores correspondientes a los cursos de Bases de Datos, Compiladores 2 y Estructuras de Datos, a realizar un software de codigo abierto para el manejo de informacion por medio de estructuras relacionales llamado Tytus. Dicho software tiene como proposito poner a disposicion una aplicacion simple pero poderosa para el manejo de bases de datos, por lo cual se detalla el desarrollo del software.
 
-## Objetivo
+## Objetivos
 * #### General
 Informar y especificar al usuario sobre la estructura y funcionamiento del software presentado con el fin de poder realizar soporte, modificaciones y asi actualizar el sistema.
 
@@ -23,6 +23,11 @@ El documento será elaborado para las personas con conocimiento en desarrollo de
 
 ## Contenido Tecnico Del Sistema
 
+### Diagrama Conceptual
+![D](./img/DiagramaConceptual.png)
+
+### Diagrama de Clases
+![D](./img/DiagramaDeClases.png)
 
 ## Requerimientos Del Sistema
 El software Tytus es una aplicacion de bases de datos que usa tecnologias diferentes para sus diferentes modulos asi:
