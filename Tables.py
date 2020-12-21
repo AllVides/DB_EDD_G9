@@ -1,5 +1,5 @@
-from ISAM import *
-from Cilindro import Registro as r
+from ISAM.ISAM import *
+from ISAM.Cilindro import Registro as r
 import os
 import pickle
 import shutil
@@ -39,7 +39,7 @@ class Tables:
     def extractTable(self, table):
         try:
             return self.Tabs[table].tuplas.readAll()
-        except expression:
+        except:
             return None
         
 
@@ -66,7 +66,7 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -81,7 +81,7 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -99,19 +99,33 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def alterAddColumn(self, table, default):
-        self.Tabs[table].countCol += 1
-        # agregar alter add column de Registro
-        return self.Tabs[table]
+        try:
+            if table in self.Tabs:
+                self.Tabs[table].countCol += 1
+                # agregar alter add column de Registro
+                return self.Tabs[table]
+            else:
+                return 3
+        except:
+            return 1
+        
 
     def alterDropColumn(self, table, columnNumber):
-        if self.Tabs[table].countCol > 0:
-            self.Tabs[table].countCol -= 1
-            # agregar alter drop column de Registro
-            return self.Tabs[table]
+        try:
+            if table in self.Tabs:
+                if self.Tabs[table].countCol > 0:
+                    self.Tabs[table].countCol -= 1
+                    # agregar alter drop column de Registro
+                    return self.Tabs[table]
+            else:
+                return 3     
+        except:
+            return 1
+        
 
     def dropTable(self, table, ruta):
         try:
@@ -133,7 +147,7 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def extractRow(self, table, columns):
@@ -142,7 +156,7 @@ class Tables:
                 return self.Tabs[table].tuplas.extractRow(columns)
             else:
                 return []
-        except expression:
+        except:
             return []
 
     def update(self, table, register, columns):
@@ -151,7 +165,7 @@ class Tables:
                 return self.Tabs[table].tuplas.update(register,columns) 
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def delete(self, table, columns):
@@ -160,7 +174,7 @@ class Tables:
                 return self.Tabs[table].tuplas.delete(columns)
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def truncate(self, table, ruta):
@@ -171,7 +185,7 @@ class Tables:
                 return 0
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def loadCSV(self,filepath, table) :
@@ -200,6 +214,7 @@ print(f.createTable("tab1", 0, "db1"))
 f.dropTable("tab1", "db1")
 f.alterTable("tab2","tab4","db1")
 f.insert("tab3",[0,"qwq"])
+print(f.alterAddPK("tab3",0))
 
 '''
 # Eliminar una tabla
