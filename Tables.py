@@ -39,14 +39,14 @@ class Tables:
     def extractTable(self, table):
         try:
             return self.Tabs[table].tuplas.readAll()
-        except expression:
+        except:
             return None
         
 
     def extractRangeTable(self, table, column, lower, upper):
         try:
             return self.Tabs[table].tuplas.readRange(column, lower, upper)
-        except expression:
+        except:
             return None
         
 
@@ -66,7 +66,7 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -81,7 +81,7 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -99,7 +99,7 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def alterAddColumn(self, table, default):
@@ -121,7 +121,7 @@ class Tables:
                 return 0
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def insert(self, table, register):
@@ -133,7 +133,7 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def extractRow(self, table, columns):
@@ -142,7 +142,7 @@ class Tables:
                 return self.Tabs[table].tuplas.extractRow(columns)
             else:
                 return []
-        except expression:
+        except:
             return []
 
     def update(self, table, register, columns):
@@ -151,7 +151,7 @@ class Tables:
                 return self.Tabs[table].tuplas.update(register,columns) 
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def delete(self, table, columns):
@@ -160,7 +160,7 @@ class Tables:
                 return self.Tabs[table].tuplas.delete(columns)
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def truncate(self, table, ruta):
@@ -171,7 +171,7 @@ class Tables:
                 return 0
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def loadCSV(self,filepath, table) :
