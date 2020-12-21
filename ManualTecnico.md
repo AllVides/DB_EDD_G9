@@ -17,7 +17,7 @@ Informar y especificar al usuario sobre la estructura y funcionamiento del softw
 ## Alcance
 El documento será elaborado para las personas con conocimiento en desarrollo de software, orientado a guiar el proceso de dar soporte a la estructura de datos.
 
-### Modulos 
+## Modulos 
 
 #### Gui
 En este modulo los usuarios podran realizar las funciones que Tytus db ofrece, de una manera grafica para ser mas accesible y entendible para cualquier usuario que desee utilizar nuestro gestor de bases de datos. Cuenta con diferentes ventanas para la navegabilidad. Cuenta con lector de archivos CSV para agilizar la carga de datos a las bases de datos creadas.
