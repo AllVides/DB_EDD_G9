@@ -136,8 +136,8 @@ class Tables:
                     return 5
             else:
                 return 3
-        #except:
-         #   return 1
+        except:
+            return 1
 
     def extractRow(self, table, columns):
         try:
