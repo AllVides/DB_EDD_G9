@@ -5,6 +5,8 @@ import pickle
 import shutil
 
 
+
+
 class TabsStruct:
     def __init__(self, name, cols, ruta):
         # numero de columnas
@@ -24,7 +26,7 @@ class Tables:
     def createTable(self, table, numberColumns, ruta):
         if not table in self.Tabs:
             self.initCheck(str(ruta)+"/"+str(table))
-            tab = TabsStruct(table, numberColumns, 'data/databases'+ruta+"/"+str(table))
+            tab = TabsStruct(table, numberColumns, 'data/databases/'+ruta+"/"+str(table))
             self.Tabs[table] = tab
             return 0
         else:
@@ -39,14 +41,14 @@ class Tables:
     def extractTable(self, table):
         try:
             return self.Tabs[table].tuplas.readAll()
-        except expression:
+        except:
             return None
         
 
     def extractRangeTable(self, table, column, lower, upper):
         try:
             return self.Tabs[table].tuplas.readRange(column, lower, upper)
-        except expression:
+        except:
             return None
         
 
@@ -56,9 +58,10 @@ class Tables:
             if table in self.Tabs:
                 if len(columns) <= self.Tabs[table].countCol:
                     for x in columns:
-                        if not columns[x] in self.Tabs[table].pks:
-                            self.Tabs[table].pks.append(columns[x])
-                            self.Tabs[table].tuplas.pkey.extend(columns[x])
+                        if not x in self.Tabs[table].pks:
+                            self.Tabs[table].pks.append(x)
+                            self.Tabs[table].tuplas.pkey=columns
+                            self.Tabs[table].tuplas.refreshMem()
                         else:
                             return 4
                     return 0
@@ -66,7 +69,7 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -81,7 +84,7 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
         
 
@@ -99,7 +102,7 @@ class Tables:
                     return 4
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def alterAddColumn(self, table, default):
@@ -121,11 +124,11 @@ class Tables:
                 return 0
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def insert(self, table, register):
-        try:
+        #try:
             if table in self.Tabs:
                 if len(register) == self.Tabs[table].countCol:
                     return self.Tabs[table].tuplas.insert(register)
@@ -133,8 +136,8 @@ class Tables:
                     return 5
             else:
                 return 3
-        except expression:
-            return 1
+        #except:
+         #   return 1
 
     def extractRow(self, table, columns):
         try:
@@ -142,7 +145,7 @@ class Tables:
                 return self.Tabs[table].tuplas.extractRow(columns)
             else:
                 return []
-        except expression:
+        except:
             return []
 
     def update(self, table, register, columns):
@@ -151,7 +154,7 @@ class Tables:
                 return self.Tabs[table].tuplas.update(register,columns) 
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def delete(self, table, columns):
@@ -160,7 +163,7 @@ class Tables:
                 return self.Tabs[table].tuplas.delete(columns)
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def truncate(self, table, ruta):
@@ -171,7 +174,7 @@ class Tables:
                 return 0
             else:
                 return 3
-        except expression:
+        except:
             return 1
 
     def loadCSV(self,filepath, table) :
@@ -189,35 +192,3 @@ class Tables:
     def initCheck(self, name):
         if not os.path.exists('data/databases/'+name):
             os.makedirs('data/databases/'+name)
-
-
-f = Tables()
-# crear Tablas
-f.createTable("tab1", 0, "db1")
-f.createTable("tab2", 0, "db1")
-f.createTable("tab3", 0, "db1")
-print(f.createTable("tab1", 0, "db1"))
-f.dropTable("tab1", "db1")
-f.alterTable("tab2","tab4","db1")
-f.insert("tab3",[0,"qwq"])
-
-'''
-# Eliminar una tabla
-f.dropTable("Db1", "tab1")
-'''
-for tabs in f.Tabs:
-    print(tabs, ":", f.Tabs[tabs].name)
-'''
-
-for tabs in f.Tabs:
-    print(tabs, ":", str(f.Tabs[tabs].name) +
-          str(f.Tabs[tabs].countCol)+str(f.Tabs[tabs].tuplas))
-
-print(f.showTables("Db2"))
-print(str(f.extractTable("Db2", "tab2")))
-f.alterTable("ds","tab2","tab4")
-
-for tabs in f.Tabs:
-    print(tabs, ":", str(f.Tabs[tabs].name) +
-          str(f.Tabs[tabs].countCol)+str(f.Tabs[tabs].tuplas))
-'''
