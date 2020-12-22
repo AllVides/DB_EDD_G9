@@ -21,6 +21,7 @@ class TabsStruct:
 class Tables:
     def __init__(self, ruta):
         self.Tabs = {}
+        self.grabar(ruta)
         self.load(ruta)
 
     def createTable(self, table, numberColumns, ruta):
@@ -28,7 +29,7 @@ class Tables:
             self.initCheck(str(ruta)+"/"+str(table))
             tab = TabsStruct(table, numberColumns,
                              'data/databases/'+ruta+"/"+str(table))
-            self.Tabs[table] =
+            self.Tabs[table] = tab
             self.grabar(ruta)
             return 0
         else:
@@ -246,14 +247,14 @@ class Tables:
         except:
             return 1
 
-    def loadCSV(self, filepath, table):
+    def loadCSV(self, db,filepath, table):
         try:
             res = []
             import csv
             with open(filepath, 'r') as file:
                 reader = csv.reader(file, delimiter=',')
                 for row in reader:
-                    res.append(self.insert(table, row))
+                    res.append(self.insert(db,table, row))
             return res
         except:
             return []
@@ -263,9 +264,9 @@ class Tables:
             os.makedirs('data/databases/'+name)
 
     def load(self, ruta):
-        if os.path.exists('data/databases/'+ruta):
-            bi.read('data/databases/'+ruta+"/tab.b")
+        if os.path.exists('data/databases/'+str(ruta)):
+            bi.read('data/databases/'+str(ruta)+"/tab.b")
 
     def grabar(self, ruta):
-        if os.path.exists('data/databases/'+ruta):
-            bi.write(self.Tabs, 'data/databases/'+ruta+"/tab.b")
+        if os.path.exists('data/databases/'+str(ruta)):
+            bi.write(self.Tabs, 'data/databases/'+str(ruta)+"/tab.b")
