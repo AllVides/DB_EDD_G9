@@ -14,6 +14,10 @@ class Ventana(tk.Toplevel):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
+        if len(m.showDatabases())==0:
+            print("")
+        else:
+            m.grafo()
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.parent.title("ventana 3")
         self.basesdatos=[]
@@ -47,13 +51,15 @@ class Ventana(tk.Toplevel):
         button5.grid(row=8, column=10)
         button2 = Button(self, text= 'Function Data', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
         button2.grid(row=8, column=15)
-        
+
+        button3 = Button(self, text= 'cargar datos', padx= 15, pady=6, bg= 'grey',fg='white',command=self.cargar)
+        button3.grid(row=8, column=13)       
         
         self.parent.withdraw()
 
     def ventana2(self):
         self.destroy()
-        Windows2.Ventana2(self.parent)
+        WindowMain.MainWindow(self.parent)
 
     def Ventana4(self):
         self.destroy()
@@ -62,6 +68,11 @@ class Ventana(tk.Toplevel):
     def Ventana5(self):
         self.destroy()
         Windows5.Ventana(self.parent,self.bases.get())
+        print(self.bases.get())
+        
+    def cargar(self):
+        self.destroy()
+        Windows2.Ventana2(self.parent)
         print(self.bases.get())
         
 

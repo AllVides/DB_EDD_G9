@@ -31,6 +31,9 @@ def createDatabase( database: str) -> int:
 def showDatabases() -> list:
     return data.imprimir()
 
+def grafo():
+    return data.grafo()
+
 def alterDatabase( databaseOld, databaseNew) -> int:
     if verificador(databaseOld) == False:
         return 2
@@ -161,7 +164,11 @@ def alterDropPK(database: str, table: str, columns: list) -> int:
         return data.bus(database).alterDropPK(table,columns)
     else:
         return 2
-
+def extractRow(database: str, table: str, columns: list) -> list:
+    if verificador(database):
+        return data.bus(database).extractRow(table,columns)
+    else:
+        return 2
 
 def loadCSV(file: str, database: str, table: str) -> list:
     try:
