@@ -21,7 +21,6 @@ class TabsStruct:
 class Tables:
     def __init__(self, ruta):
         self.Tabs = {}
-        self.grabar(ruta)
         self.load(ruta)
 
     def createTable(self, table, numberColumns, ruta):
@@ -264,7 +263,7 @@ class Tables:
             os.makedirs('data/databases/'+name)
 
     def load(self, ruta):
-        if os.path.exists('data/databases/'+str(ruta)):
+        if os.path.isfile('data/databases/'+str(ruta)+"/tab.b"):
             bi.read('data/databases/'+str(ruta)+"/tab.b")
 
     def grabar(self, ruta):
