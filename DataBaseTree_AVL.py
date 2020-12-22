@@ -3,7 +3,7 @@ from Tables import *
 import BinWriter as b
 import os
 import pickle
-
+from PIL import Image
 
 class DataBase:
     def __init__(self, value):
@@ -21,23 +21,12 @@ class AVLTree:
         self.arr=[]
         self.eliminados=[]
         self.load()
-        self.loadE()
-        
-    def Elim(self,dato):
-        b.write(self.arr,"data/databases/EBases.b")
-
-    def loadE(self):
-        if os.path.exists("data/databases/EBases.b"):
-            var=b.read("data/databases/EBases.b")
-            for i in var:
-                self.eliminados.append(i)
 
     def load(self):
         if os.path.exists("data/databases/Bases.b"):
             var=b.read("data/databases/Bases.b")
             for i in var:
                 self.add(i)
-                self.arr.append(i)
         
     def writer(self):
         b.write(self.arr,"data/databases/Bases.b")
@@ -112,9 +101,9 @@ class AVLTree:
 
            
     def Eliminar(self,value):
-        self.Elim(value)
-        self.eliminados.append(value)
         self.root=self._eliminar(value,self.root)
+        self.arr.remove(value)
+        self.writer()
         
 
     def _eliminar(self, valor,nodo):
@@ -186,7 +175,8 @@ class AVLTree:
             g.close()
             os.system('dot -Tpng grafo.dot -o AvlData.png')
             os.system('AvlData.png')
-            
+            img=Image.open("AvlData.png")
+            img.show()
     
 
     def _grafo(self,f,actual):
@@ -232,7 +222,7 @@ class AVLTree:
                 for j in self.arr:
                     if i==j:
                         self.arr.remove(i)
-        self.grafo()
+        
         return self.arr
 
     def verificar(self,valor):

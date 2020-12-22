@@ -11,7 +11,7 @@ class Ventana(tk.Toplevel):
         super().__init__(parent)
         self.parent = parent
         self.protocol("WM_DELETE_WINDOW", self.close)
-        self.title("Ventana 4")
+        self.title("Ventana 6")
         self.namebase=namebase
         label1 = Label(self,text=self.namebase)
         label1.config(font=("Verdana", 35))
@@ -27,22 +27,22 @@ class Ventana(tk.Toplevel):
         boton3 = tk.Button(self, text="extractRangeTable", width=20, command=self.extractRangeTable)
         boton3.grid(row=5, column=4, padx=20, pady=30)
         boton4 = tk.Button(self, text="alterAddPK", width=20, command=self.alterAddPK)
-        boton4.grid(row=5, column=2, padx=20, pady=30)
+        boton4.grid(row=5, column=5, padx=20, pady=30)
         boton5 = tk.Button(self, text="alterDropPK", width=20, command=self.alterDropPK)
-        boton5.grid(row=5, column=3, padx=20, pady=30)
+        boton5.grid(row=6, column=2, padx=20, pady=30)
         boton6 = tk.Button(self, text="showTable", width=20, command=self.showTable)
-        boton6.grid(row=5, column=4, padx=20, pady=30)
+        boton6.grid(row=6, column=3, padx=20, pady=30)
         boton7 = tk.Button(self, text="alterTable", width=20, command=self.alterTable)
-        boton7.grid(row=5, column=2, padx=20, pady=30)
+        boton7.grid(row=6, column=4, padx=20, pady=30)
         boton10 = tk.Button(self, text="alterAddColumn", width=20, command=self.alteraddColumn)
-        boton10.grid(row=5, column=4, padx=20, pady=30)
+        boton10.grid(row=6, column=5, padx=20, pady=30)
         boton9 = tk.Button(self, text="alterDropColumn", width=20, command=self.alterDropColumn)
-        boton9.grid(row=5, column=4, padx=20, pady=30)
+        boton9.grid(row=7, column=3, padx=20, pady=30)
         boton8 = tk.Button(self, text="dropTable", width=20, command=self.dropTable)
-        boton8.grid(row=5, column=4, padx=20, pady=30)
+        boton8.grid(row=7, column=4, padx=20, pady=30)
         label3 = Label(self,text="\nInsert Parameters")
         label3.config(font=("Verdana", 12))
-        label3.grid(row=7, column=3)  
+        label3.grid(row=9, column=3)  
         
         self.parameters=tk.StringVar() 
         parametros=Entry(self, width=50,textvariable=self.parameters)
@@ -63,50 +63,59 @@ class Ventana(tk.Toplevel):
     def createTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.createDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.createTable(para[0],para[1],int(para[2]))))
 
     def showTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.alterDatabase(para[0],para[1])))
+        messagebox.showinfo("Funcion de base de datos",str(j.showTables(self.namebase)))
 
     def extractTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.dropDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.extractTable(para[0],para[1])))
    
     def extractRangeTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.createDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.extractRangeTable(para[0],para[1],int(para[2]),para[3],para[4])))
 
     def alterAddPK(self):
         parametros=str(self.parameters.get())
-        para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.alterDatabase(para[0],para[1])))
+        para=parametros.split(",")   
+        try:
+            arreglo=para[2].split("[")
+            arreglo1=arreglo[1].split("]")
+            arreglo2=arreglo1[0].split(",")
+            dato=[]
+            for i in arreglo2:
+                dato.append(i)
+            messagebox.showinfo("Funcion de base de datos",str(j.alterAddPK(para[0],para[1],dato)))
+        except:
+            return 1
 
     def alterDropPK(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.dropDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.alterDropPK(para[0],para[1],para[2])))
 
 
     def alterTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.createDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.alterTable(para[0],para[1],para[2])))
 
     def alteraddColumn(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.alterDatabase(para[0],para[1])))
+        messagebox.showinfo("Funcion de base de datos",str(j.alterAddColumn(para[0],para[1])))
 
     def alterDropColumn(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.dropDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.alterDropColumn(para[0],para[1],int(para[2]))))
 
     def dropTable(self):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.dropDatabase(para[0])))
+        messagebox.showinfo("Funcion de base de datos",str(j.dropTable(para[0],para[1])))

@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
+import Windows6
+import Windows7
 import Windows3
 import MainG as m
 
@@ -31,34 +33,40 @@ class Ventana(tk.Toplevel):
 
         self.bases=tk.StringVar(self)
         self.bases.set('Seleccionar...')
-        d=[0,0,0,0]
-        menu = tk.OptionMenu(self, self.bases, *d)
+        
+        menu = tk.OptionMenu(self, self.bases, *self.basesdatos)
         menu.config(width=20)
         menu.grid(row = 7, column = 10, padx = 30, pady = 30)
 
 
-        button1 = Button(self, text= 'Atras', padx= 15, pady=6, bg= 'grey',fg='white',command=self.ventana3)
+        button1 = Button(self, text= 'Atras', padx= 15, pady=6, bg= 'grey',fg='white',command=self.ventana7)
         button1.grid(row=8, column=0)
-#        button5 = Button(self, text= 'Enter to Base', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
- #       button5.grid(row=8, column=10)
-  #      button2 = Button(self, text= 'Function Data', padx= 15, pady=6, bg= 'grey',fg='white',command=self.Ventana4)
-   #     button2.grid(row=8, column=15)
+        button5 = Button(self, text= 'Enter a tabla', padx= 15, pady=6, bg= 'grey',fg='white',command=self.ventana3)
+        button5.grid(row=8, column=10)
+        button2 = Button(self, text= 'Function en Tablas', padx= 15, pady=6, bg= 'grey',fg='white',command=self.funciones)
+        button2.grid(row=8, column=15)
         
         
         self.parent.withdraw()
 
-    def ventana3(self):
+    def ventana7(self):
         self.destroy()
         Windows3.Ventana(self.parent)
-        
+
+    def ventana3(self):
+        self.destroy()
+        Windows7.Ventana(self.parent,self.namebase,self.bases.get())
+
+    def funciones(self):
+        self.destroy()
+        Windows6.Ventana(self.parent,self.namebase)
     def close(self):
         self.parent.destroy()
         
     def b(self):
         self.basesdatos.clear()
-        if len(m.showDatabases())!=0:
+        if len(m.showTables(self.namebase))!=0:
             for k in m.showTables(self.namebase):
                 self.basesdatos.append(k)
         elif len(self.basesdatos)==0:
-            self.basesdatos.append("l")
-            self.basesdatos.append("l")
+            self.basesdatos.append("No hay tablas")
