@@ -65,7 +65,7 @@ class Ventana(tk.Toplevel):
         lista=Entry(self, width=15,textvariable=self.l)
         lista.grid(row=13,column=1)
 
-        boton22 = tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.insertar1(self.b,self.t,lista.get()))
+        boton22 = tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.insertar1(base.get(),tablita.get(),lista.get()))
         boton22.grid(row=16, column=3, padx=20, pady=30)
 
     def verificadorlista(self,string):
@@ -83,12 +83,11 @@ class Ventana(tk.Toplevel):
             numero=[]
             lista=converterlist.split(",")  
             for i in lista:
-                numero.append(int(i))
+                numero.append(i)
             print(numero)
             return numero
         else:
-            return int(string)
-
+            return string
         
 
     def extractRow(self):
@@ -107,7 +106,7 @@ class Ventana(tk.Toplevel):
         jl.grid(row=13,column=0)
         lista=Entry(self, width=15,textvariable=self.l)
         lista.grid(row=13,column=1)
-        boton33= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.extractRow1(self.b,self.t,self.l))
+        boton33= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.extractRow1(base.get(),tablita.get(),lista.get()))
         boton33.grid(row=16, column=3, padx=20, pady=30)
 
     def update(self):

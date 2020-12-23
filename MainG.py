@@ -62,8 +62,7 @@ def showTables( database: str) -> list:
     try:
         if verificador(database):
                 # retornar la lista
-            contenido = os.listdir('data/databases/'+str(database))
-            return contenido
+            return data.bus(database).showTables()
         else:
             return None
     except error:
