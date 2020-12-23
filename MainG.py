@@ -49,13 +49,10 @@ def alterDatabase( databaseOld, databaseNew) -> int:
 
     # CRUD DE LAS TABLAS QUE ESTAN DENTRO DE LA BASE DE DATOS
 def createTable( database: str, table: str, numberColumns: int) -> int:
-    try:
-        if verificador(database) == True:
-            return data.bus(database).createTable(table,numberColumns,database)
-        else:
-            return 2
-    except :
-        return 1
+    if verificador(database) == True:
+        return data.bus(database).createTable(table,numberColumns,database)
+    else:
+        return 2
 
 
 def showTables( database: str) -> list:
@@ -70,22 +67,17 @@ def showTables( database: str) -> list:
 
 
 def alterTable( database: str, tableOld: str, tableNew: str) -> int:
-    try:
-        if verificador(database):
-            return  data.bus(database).alterTable(tableOld,tableNew,database)
-        else:
-            return 2
-    except error:
-        return 1
+    if verificador(database):
+        return  data.bus(database).alterTable(tableOld,tableNew,database)
+    else:
+        return 2
 
 def dropTable(database: str, table:str) -> int:
-    try:
-        if verificador(database):
-            return data.bus(database).dropTable(table,database)
-        else:
-            return 2
-    except error:
-        return 1
+
+    if verificador(database):
+        return data.bus(database).dropTable(table,database)
+    else:
+        return 2
         
 
 def alterAddColumn(database: str, table :str,default:any) -> int:
@@ -95,15 +87,11 @@ def alterAddColumn(database: str, table :str,default:any) -> int:
         return 2
     
 def alterDropColumn(database: str, table :str, columnNumber: int) -> int:
-    try:
-        if verificador(database) == True:
-            return data.bus(database).alterDropColumn(database,table,columnNumber)
-        else:
-            return 2
-    except error:
-        return 1
+    if verificador(database) == True:
+        return data.bus(database).alterDropColumn(database,table,columnNumber)
+    else:
+        return 2
 
-    
 def extractTable(database: str, table :str) -> list:
     try:
         if verificador(database):
@@ -138,29 +126,23 @@ def update(database: str, table :str, register: dict, columns: list) -> int:
         return 2
     
 def delete(database: str, table: str, columns: list) -> int:
-    try:
-        if verificador(database):
-            return data.bus(database).delete(database,table,columns)
-        else:
-            return 2
-    except error:
-        return 1
+    if verificador(database):
+        return data.bus(database).delete(database,table,columns)
+    else:
+        return 2
 
     
 def truncate(database: str, table: str) -> int:
-    try:
-        if verificador(database):
-            return data.bus(database).truncate(table,database)
-        else:
-            return 2
-    except error:
-        return 1
+    if verificador(database):
+        return data.bus(database).truncate(table,database)
+    else:
+        return 2
 
 def alterAddPK(database: str, table: str, columns: list) -> int:
     if verificador(database):
         return data.bus(database).alterAddPK(table,columns,database)
     else:
-        return 1
+        return 2
 
 def alterDropPK(database: str, table: str) -> int:
     if verificador(database):
@@ -194,8 +176,10 @@ def verificador(name):
         dum=True
     return dum
     
-def decod(self,ruta):
+def decod(ruta):
     file = open(ruta+".bin", "rb")
     b = file.read()
     file.close()
     return pickle.loads(b)
+
+def graficoTablas()
