@@ -1,6 +1,6 @@
-from ISAM import Indice
-from Cilindro import Registro
-import BinWriter as bi
+from ISAM.ISAM import Indice
+from ISAM.Cilindro import Registro
+import ISAM.BinWriter as bi
 import os
 import pickle
 import shutil
@@ -264,7 +264,7 @@ class Tables:
 
     def load(self, ruta):
         if os.path.isfile('data/databases/'+str(ruta)+"/tab.b"):
-            bi.read('data/databases/'+str(ruta)+"/tab.b")
+            self.Tabs = bi.read('data/databases/'+str(ruta)+"/tab.b")
 
     def grabar(self, ruta):
         if os.path.exists('data/databases/'+str(ruta)):
