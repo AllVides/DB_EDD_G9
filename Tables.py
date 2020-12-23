@@ -13,9 +13,11 @@ class TabsStruct:
         # nombre de la tabla
         self.name = name
         # llaves primarias
-        self.pks = []
+        self.pks = [0]
         # tuplas con estructura de ISAM
         self.tuplas = Indice(self.pks, ruta)  # tambien pasar ruta de la tabla)
+        #bandera
+        self.llaves = True
 
 
 class Tables:
@@ -58,18 +60,21 @@ class Tables:
         try:
             if table in self.Tabs:
                 if len(columns) <= self.Tabs[table].countCol:
-                    for x in columns:
-                        if not x in self.Tabs[table].pks:
-                            self.Tabs[table].pks.append(x)
-                            # self.Tabs[table].tuplas.pkey=columns
-                            # self.Tabs[table].tuplas.refreshMem()
-                        else:
-                            return 4
+                    if self.Tabs[table].llaves:
+                        self.Tabs[table].pks = columns
+                        self.Tabs[table].llaves = False
+                    else:
+                         for x in columns:
+                            if not x in self.Tabs[table].pks:
+                                self.Tabs[table].pks.append(x)
+                                # self.Tabs[table].tuplas.pkey=columns
+                                # self.Tabs[table].tuplas.refreshMem()
+                            else:
+                                return 4
                     tup = self.Tabs[table].tuplas.readAll()
                     self.truncate(table, ruta)
                     for x in tup:
                         self.insert(table, x)
-                    self.Tabs[table].tuplas.refreshMem()
                     self.grabar(ruta)
                     return 0
                 else:
@@ -84,12 +89,6 @@ class Tables:
             if table in self.Tabs:
                 if len(self.Tabs[table].pks) != 0:
                     self.Tabs[table].pks = []
-                    tup = self.Tabs[table].tuplas.readAll()
-                    self.truncate(table, ruta)
-                    for x in tup:
-                        self.insert(table, x)
-                    self.Tabs[table].tuplas.refreshMem()
-                    self.grabar(ruta)
                     return 0
                 else:
                     return 4
