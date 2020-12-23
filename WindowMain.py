@@ -22,8 +22,8 @@ class MainWindow(tk.Frame):
         label4 = Label(text="\n\nInsert Number")
         label4.config(font=("Verdana", 15))
         label4.grid(row=7, column=3)
-        entry = Entry()
-        entry.grid(row=10, column=3)
+        self.entry = Entry()
+        self.entry.grid(row=10, column=3)
         button = Button(text='Accept', padx=15, pady=6, bg='grey', fg='white', command=self.SegundaVentana)
         button.grid(row=12, column=3)
 
@@ -33,7 +33,7 @@ class MainWindow(tk.Frame):
 
 
     def SegundaVentana(self):
-        
+        print(self.entry.get())
         self.destroy()
         Windows3.Ventana(self.parent)
         

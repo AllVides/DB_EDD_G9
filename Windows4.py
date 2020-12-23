@@ -25,7 +25,9 @@ class Ventana(tk.Toplevel):
         boton2 = tk.Button(self, text="Cambiar Nombre", width=20, command=self.editarbase)
         boton2.grid(row=5, column=3, padx=20, pady=30)
         boton3 = tk.Button(self, text="Eliminar", width=20, command=self.eliminarbase)
-        boton3.grid(row=5, column=6, padx=20, pady=30)
+        boton3.grid(row=5, column=4, padx=20, pady=30)
+        boton3 = tk.Button(self, text="MostrarBases", width=20, command=self.mostrarbases)
+        boton3.grid(row=5, column=5, padx=20, pady=30)
         label3 = Label(self,text="\nInsert Parameters")
         label3.config(font=("Verdana", 12))
         label3.grid(row=7, column=3)  
@@ -60,3 +62,6 @@ class Ventana(tk.Toplevel):
         parametros=str(self.parameters.get())
         para=parametros.split(",")
         messagebox.showinfo("Funcion de base de datos",str(j.dropDatabase(para[0])))
+
+    def eliminarbase(self):
+        messagebox.showinfo("Funcion de base de datos",str(j.showDatabases)))

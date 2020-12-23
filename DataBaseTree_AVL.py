@@ -8,7 +8,7 @@ from PIL import Image
 class DataBase:
     def __init__(self, value):
         self.value  = value
-        self.tables= Tables()
+        self.tables= Tables(value)
         self.left   = None
         self.right  = None
         self.height = 0   #altura 

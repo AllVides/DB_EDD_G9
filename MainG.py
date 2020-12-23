@@ -54,7 +54,7 @@ def createTable( database: str, table: str, numberColumns: int) -> int:
             return data.bus(database).createTable(table,numberColumns,database)
         else:
             return 2
-    except expression as identifier:
+    except :
         return 1
 
 
@@ -89,13 +89,16 @@ def dropTable(database: str, table:str) -> int:
         return 1
         
 
-def alterAddColumn(database: str, table :str) -> int:
-    print("agregar columna")
+def alterAddColumn(database: str, table :str,default:any) -> int:
+    if verificador(database) == True:
+            return data.bus(database).alterAddColumn(database,table,default)
+    else:
+        return 2
     
 def alterDropColumn(database: str, table :str, columnNumber: int) -> int:
     try:
         if verificador(database) == True:
-            return data.bus(database).alterDropColumn(table,columnNumber)
+            return data.bus(database).alterDropColumn(database,table,columnNumber)
         else:
             return 2
     except error:
@@ -124,20 +127,21 @@ def extractRangeTable(database: str, table: str, columnNumber: int, lower: any, 
     # FUNCIONES DENTRO DE LAS TUPLAS
 def insert(database: str, table :str, register: list) -> int:
     if verificador(database):
-            return data.bus(database).insert(table,register)
+    
+            return data.bus(database).insert(database,table,register)
     else:
         return 2
     
 def update(database: str, table :str, register: dict, columns: list) -> int:
     if verificador(database):
-        return data.bus(database).update(table,register,columns)
+        return data.bus(database).update(database,table,register,columns)
     else:
         return 2
     
 def delete(database: str, table: str, columns: list) -> int:
     try:
         if verificador(database):
-            return data.bus(database).delete(table,columns)
+            return data.bus(database).delete(database,table,columns)
         else:
             return 2
     except error:
@@ -155,13 +159,13 @@ def truncate(database: str, table: str) -> int:
 
 def alterAddPK(database: str, table: str, columns: list) -> int:
     if verificador(database):
-        return data.bus(database).alterAddPK(table,columns)
+        return data.bus(database).alterAddPK(table,columns,database)
     else:
         return 1
 
-def alterDropPK(database: str, table: str, columns: list) -> int:
+def alterDropPK(database: str, table: str) -> int:
     if verificador(database):
-        return data.bus(database).alterDropPK(table,columns)
+        return data.bus(database).alterDropPK(table,database)
     else:
         return 2
 def extractRow(database: str, table: str, columns: list) -> list:
@@ -171,13 +175,10 @@ def extractRow(database: str, table: str, columns: list) -> list:
         return 2
 
 def loadCSV(file: str, database: str, table: str) -> list:
-    try:
-        if verificador(database):
-            return data.bus(database).loadCSV(file,table)
-        else:
-            return 2
-    except error:
-        return 1
+    if verificador(database):
+        return data.bus(database).loadCSV(database,file,table)
+    else:
+        return 2
 
     # METODOS EXTRAS 
 def initCheck(name):

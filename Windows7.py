@@ -29,22 +29,14 @@ class Ventana(tk.Toplevel):
         boton3.grid(row=5, column=4, padx=20, pady=30)
         boton4 = tk.Button(self, text="truncate", width=20, command=self.truncate)
         boton4.grid(row=5, column=5, padx=20, pady=30)
+        boton5 = tk.Button(self, text="DELETe", width=20, command=self.delete)
+        boton5.grid(row=6, column=2, padx=20, pady=30)
         label3 = Label(self,text="\nInsert Parameters")
         label3.config(font=("Verdana", 12))
         label3.grid(row=9, column=3)  
         
-        self.b=tk.StringVar() 
-        base=Entry(self, width=50,textvariable=self.b)
-        base.grid(row=10,column=2)
-        self.t=tk.StringVar() 
-        tablita=Entry(self, width=50,textvariable=self.t)
-        tablita.grid(row=10,column=3)
-        self.l=tk.StringVar() 
-        lista=Entry(self, width=50,textvariable=self.l)
-        lista.grid(row=10,column=4)
-
-        boton = tk.Button(self, text="Aplicar Cambios", width=20, command=self.atras)
-        boton.grid(row=13, column=3, padx=20, pady=30)
+        boton = tk.Button(self, text="Atras", width=20, command=self.atras)
+        boton.grid(row=16, column=1, padx=20, pady=30)
         
         self.parent.withdraw()
 
@@ -56,35 +48,159 @@ class Ventana(tk.Toplevel):
     def close(self):
         self.parent.destroy()
     
-    def insertar(self): 
-        base=str(self.b.get())
-        tabla=str(self.t.get())
-        lista=self.l.get()
-        datos = lista.lstrip("[")
-        datos=datos.rstrip("]")
-        dat=datos.split(",")     
-        arreglo=[]
-        for i in dat:
-            arreglo.append(i)
+    def insertar(self):        
+        self.b=tk.StringVar() 
+        j=Label(self,text="DataBase")
+        j.grid(row=11,column=0)
+        base=Entry(self, width=15,textvariable=self.b)
+        base.grid(row=11,column=1)
+        self.t=tk.StringVar() 
+        jt=Label(self,text="Table")
+        jt.grid(row=12,column=0)
+        tablita=Entry(self, width=15,textvariable=self.t)
+        tablita.grid(row=12,column=1)
+        self.l=tk.StringVar() 
+        jl=Label(self,text="Register")
+        jl.grid(row=13,column=0)
+        lista=Entry(self, width=15,textvariable=self.l)
+        lista.grid(row=13,column=1)
 
-        print(arreglo)
+        boton22 = tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.insertar1(self.b,self.t,lista.get()))
+        boton22.grid(row=16, column=3, padx=20, pady=30)
 
-        messagebox.showinfo("Funcion de base de datos",str(j.insert(base,tabla,arreglo)))
-        print(j.extractTable(base,tabla)) 
+    def verificadorlista(self,string):
+        b1=False
+        b2=False
+        converterlist=''
+        for i in string:
+            if i=="[":
+                b1=True
+            elif i=="]":
+                b2=True
+            else:
+                converterlist+=i
+        if b1 and b2 :
+            numero=[]
+            lista=converterlist.split(",")  
+            for i in lista:
+                numero.append(int(i))
+            print(numero)
+            return numero
+        else:
+            return int(string)
+
+        
 
     def extractRow(self):
-        parametros=str(self.parameters.get())
-        para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.extractRow()))
+        self.b=tk.StringVar() 
+        j=Label(self,text="DataBase")
+        j.grid(row=11,column=0)
+        base=Entry(self, width=15,textvariable=self.b)
+        base.grid(row=11,column=1)
+        self.t=tk.StringVar() 
+        jt=Label(self,text="Table")
+        jt.grid(row=12,column=0)
+        tablita=Entry(self, width=15,textvariable=self.t)
+        tablita.grid(row=12,column=1)
+        self.l=tk.StringVar() 
+        jl=Label(self,text="Column")
+        jl.grid(row=13,column=0)
+        lista=Entry(self, width=15,textvariable=self.l)
+        lista.grid(row=13,column=1)
+        boton33= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.extractRow1(self.b,self.t,self.l))
+        boton33.grid(row=16, column=3, padx=20, pady=30)
 
     def update(self):
-        parametros=str(self.parameters.get())
-        para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.update(para[0],para[1],para[2],para[3])))
-   
-    def truncate(self):
-        parametros=str(self.parameters.get())
-        para=parametros.split(",")
-        messagebox.showinfo("Funcion de base de datos",str(j.truncate(para[0],para[1])))
+        j=Label(self,text="DataBase")
+        j.grid(row=11,column=0)
+        base=Entry(self, width=15)
+        base.grid(row=11,column=1)
+        jt=Label(self,text="Table")
+        jt.grid(row=12,column=0)
+        tablita=Entry(self, width=15)
+        tablita.grid(row=12,column=1)
+        jl=Label(self,text="Register")
+        jl.grid(row=13,column=0)
+        lista=Entry(self, width=15)
+        lista.grid(row=13,column=1)
+        jdl=Label(self,text='ingresa tu diccionario sin llaves "{" "}"  ')
+        jdl.grid(row=13,column=2)
+        l=Label(self,text="Columns")
+        l.grid(row=14,column=0)
+        columns=Entry(self, width=15)
+        columns.grid(row=14,column=1)
 
-    
+        #revisar
+        register=lista.get()
+        colum=columns.get()
+        boton34= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.update1(base.get(),tablita.get(),register.rsplit(","),colum.rsplit(",")))
+        boton34.grid(row=16, column=3, padx=20, pady=30)
+
+    def truncate(self):
+        j=Label(self,text="DataBase")
+        j.grid(row=11,column=0)
+        base=Entry(self, width=15)
+        base.grid(row=11,column=1)
+        jt=Label(self,text="Table")
+        jt.grid(row=12,column=0)
+        tablita=Entry(self, width=15)
+        tablita.grid(row=12,column=1)
+        boton34= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.truncate1(base.get(),tablita.get()))
+        boton34.grid(row=16, column=3, padx=20, pady=30)
+
+
+    def delete(self):
+        self.b=tk.StringVar() 
+        j=Label(self,text="DataBase")
+        j.grid(row=11,column=0)
+        base=Entry(self, width=15,textvariable=self.b)
+        base.grid(row=11,column=1)
+        self.t=tk.StringVar() 
+        jt=Label(self,text="Table")
+        jt.grid(row=12,column=0)
+        tablita=Entry(self, width=15,textvariable=self.t)
+        tablita.grid(row=12,column=1)
+        self.l=tk.StringVar() 
+        jl=Label(self,text="Column")
+        jl.grid(row=13,column=0)
+        lista=Entry(self, width=15,textvariable=self.l)
+        lista.grid(row=13,column=1)
+        boton33= tk.Button(self, text="Aplicar Cambios", width=20, command=lambda:self.delete1(self.b,self.t,self.l))
+        boton33.grid(row=16, column=3, padx=20, pady=30)
+
+
+
+    def insertar1(self,base,tabla,arreglo):    
+        lista=self.verificadorlista(arreglo)    
+        messagebox.showinfo("Funcion de base de datos",str(j.insert(base,tabla,lista)))
+        print(j.extractTable(base,tabla)) 
+
+    def extractRow1(self,base,tabla,columna):
+        lista=self.verificadorlista(columna)
+        messagebox.showinfo("Funcion de base de datos",str(j.extractRow(base,tabla,lista)))
+
+    def update1(self,data,table,register,columns):
+        registro=self.verificardiccionario(register)
+        lista=self.verificadorlista(columns)
+        messagebox.showinfo("Funcion de base de datos",str(j.update(data,table,registro,lista)))
+   
+    def truncate1(self,base,tabla):
+
+        messagebox.showinfo("Funcion de base de datos",str(j.truncate(base,tabla)))
+
+
+    def delete1(self,base,tabla,columna):
+        lista=self.verificadorlista(columna)
+        messagebox.showinfo("Funcion de base de datos",str(j.delete(base,tabla,lista)))
+
+
+    def verificardiccionario(self,dic):
+
+        diccionario={}
+        linea=dic.split(',')
+        for line in linea:
+            g=line.split(":")
+            diccionario[g[0]]=g[1]
+
+        return diccionario
+
