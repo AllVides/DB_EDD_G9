@@ -2,6 +2,7 @@ import os
 from DataBaseTree_AVL import *
 import shutil
 import pickle
+from PIL import Image
 
 
 
@@ -182,4 +183,25 @@ def decod(ruta):
     file.close()
     return pickle.loads(b)
 
-def graficoTablas()
+def graficoTablas(Database):
+    lista = data.bus(Database).showTables()
+    if len(lista)!=0:
+        tabla=open("grafoT.dot","w")
+        tabla.write("digraph G { ")
+        
+        tabla.write('rankdir="LR" \nnode [shape=box];\n')
+        tabla.write(str(Database)+'[ label ="'+str(Database)+'", shape=ellipse ];\n')
+        for i in lista:
+            tabla.write(str(i)+'[ label ="'+str(i)+'"];\n')
+        for i in lista:
+            tabla.write(str(Database)+ "->" + str(i)+"\n")
+        tabla.write("\n }")
+        tabla.close()
+
+        os.system('dot -Tpng grafoT.dot -o grafotabla.png')
+        os.system('grafotabla.png')
+        img=Image.open("grafotabla.png")
+        img.show()
+        
+    else:
+        ''

@@ -12,7 +12,18 @@ class Ventana(tk.Toplevel):
         self.parent = parent
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.title("Ventana 4")
-
+        if len(m.showTables(self.namebase))==0:
+            print("")
+        else:
+            m.graficoTablas(self.namebase)
+        if os.path.exists("grafotabla.png"):
+            print("si existe")
+            canvas=Canvas(self)
+            canvas.pack()
+            img=Image.open('grafotabla.png')
+            canvas.image =ImageTk.PhotoImage(img)
+            canvas.create_image(0,0,image=canvas.image,anchor='nw')
+            canvas.grid(row=2,column=10)
         label1 = Label(self,text="Nombre base")
         label1.config(font=("Verdana", 35))
         label1.grid(row=1, column=3)

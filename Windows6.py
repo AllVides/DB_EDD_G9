@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk, Image
 import Windows5
-import WindowMain
+import os
 import MainG as j
 
 class Ventana(tk.Toplevel):
@@ -75,7 +75,11 @@ class Ventana(tk.Toplevel):
    
     def showTable(self):
         messagebox.showinfo("Funcion de base de datos",str(j.showTables(self.namebase)))
-
+        j.graficoTablas(self.namebase)
+        os.system('dot -Tpng grafoT.dot -o grafotabla.png')
+        os.system('grafotabla.png')
+        img=Image.open("grafotabla.png")
+        img.show()
     def extractTable(self):
         b=Label(self,text="Database")
         b.grid(row=10,column=1)

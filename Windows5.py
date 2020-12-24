@@ -6,6 +6,7 @@ import Windows6
 import Windows7
 import Windows3
 import MainG as m
+import os
 
 import WindowMain
 
@@ -18,7 +19,22 @@ class Ventana(tk.Toplevel):
         self.b()
         self.protocol("WM_DELETE_WINDOW", self.close)
         self.title("Ventana 4")
-
+        if len(m.showTables(self.namebase))==0:
+            print("")
+        else:
+            m.graficoTablas(self.namebase)
+        if os.path.exists("grafotabla.png"):
+            print("si existe")
+            canvas=Canvas(self)
+            canvas.pack()
+            img=Image.open('grafotabla.png')
+            canvas.image =ImageTk.PhotoImage(img)
+            canvas.create_image(0,0,image=canvas.image,anchor='nw')
+            canvas.grid(row=2,column=10)
+            os.system('grafotabla.png')
+            img=Image.open("grafotabla.png")
+            img.show()
+            
         label1 = Label(self,text=namebase)
         label1.config(font=("Verdana", 35))
         label1.grid(row=1, column=3)
@@ -28,8 +44,10 @@ class Ventana(tk.Toplevel):
         label2.grid(row=3, column=3)
         label5=Label(self,text="representacion de las tablas")
 
+
         label5.config(font=("Verdana", 20))
         label5.grid(row=5, column=3)
+
 
         self.bases=tk.StringVar(self)
         self.bases.set('Seleccionar...')
